@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "../styles/index.css";
+import headerImage from "../assets/header2.png";
 
 const HomePage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -10,9 +12,10 @@ const HomePage = () => {
     <div>
       <div className="imageheader2" style={{ textAlign: "center" }}>
         <img
-          src="/lffimages/header2.png"
+          src={headerImage}
           alt="inside of Le Fou Frog"
-          style={{ width: "60%", height: "auto" }}
+          width="60%"
+          height="auto"
         />
       </div>
       <nav>
