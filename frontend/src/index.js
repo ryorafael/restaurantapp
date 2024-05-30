@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
+
 const root = document.getElementById("root");
 
 // Check if createRoot is available (React 17+)

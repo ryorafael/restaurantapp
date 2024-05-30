@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "../styles/index.css";
 import headerImage from "../assets/header2.png";
+import wagyu from "../assets/wagyu1.png";
+import steak from "../assets/steakaupoivrenew.webp";
+import profiteroles from "../assets/profiteroles1.png";
+import escargot from "../assets/escargot2.png";
+import poisson from "../assets/poisson.png";
 
 const HomePage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -78,11 +83,11 @@ const HomePage = () => {
       </div>
       <br />
       <div className="scroll-container">
-        <img src="lffimages/wagyu1.png" alt="" />
-        <img src="lffimages/steakaupoivrenew.webp" alt="" />
-        <img src="lffimages/profiteroles1.png" alt="" />
-        <img src="lffimages/escargot2.png" alt="" />
-        <img src="lffimages/poisson.png" alt="" />
+        <img src={wagyu} alt="wagyu" />
+        <img src={steak} alt="steak" />
+        <img src={profiteroles} alt="profiteroles" />
+        <img src={escargot} alt="escargot" />
+        <img src={poisson} alt="poisson" />
       </div>
       <h3>
         <div className={`modal ${isModalOpen ? "open" : ""}`}>
