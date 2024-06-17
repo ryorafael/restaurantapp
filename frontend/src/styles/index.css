@@ -278,7 +278,7 @@ logo absolute*/
   font-weight: bold;
 }
 
-div.scroll-container {
+/* div.scroll-container {
   background-color: #58784f;
   overflow: auto;
   white-space: nowrap;
@@ -286,5 +286,51 @@ div.scroll-container {
 }
 
 div.scroll-container img {
+  padding: 10px;
+} */
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 7));
+  }
+}
+
+.slider {
+  background-color: #58784f;
+  height: 625px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  padding: 10px;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
+}
+
+.slider::after {
+  right: 0;
+  top: 0;
+  transform: rotateZ(180deg);
+}
+
+.slider::before {
+  left: 0;
+  top: 0;
+}
+
+.slide-track {
+  display: flex;
+  animation: scroll 40s linear infinite;
+  width: calc(250px * 14); /* Nombre d'images * largeur de chaque image */
+}
+
+.slide {
+  height: 800px;
+  width: 550px;
+}
+
+.slide img {
   padding: 10px;
 }

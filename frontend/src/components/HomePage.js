@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/index.css";
 import headerImage from "../assets/header2.png";
 import wagyu from "../assets/wagyu1.png";
@@ -23,51 +23,6 @@ const HomePage = () => {
           height="auto"
         />
       </div>
-      <nav>
-        <a href="/">Home</a>
-        <div className="dropdown">
-          <a href className="dropbtn">
-            La Carte
-          </a>
-          <div className="dropdown-content">
-            <a href="/menu">Dinner Menu</a>
-            <a href="/cocktail">Cocktail Menu</a>
-            <a href="/winemenu">Wine List</a>
-            <a href="/dessert">Desserts</a>
-          </div>
-        </div>
-        <a href="/events">Events</a>
-        <a href="/giftcertificates">Gift Certificates</a>
-        <div className="dropdown">
-          <a href className="dropbtn">
-            Social Media
-          </a>
-          <div className="dropdown-content">
-            <a
-              href="https://www.facebook.com/p/le-Fou-Frog-100063884143223/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Facebook
-            </a>
-            <a
-              href="https://www.instagram.com/lefoufrog/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.lefoufrog.com/blog"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Blog
-            </a>
-          </div>
-        </div>
-        <a href="/aboutus">About us</a>
-      </nav>
       <h4>established in 1996</h4>
       <h2>Bienvenue à Le Fou Frog</h2>
       <br />
@@ -82,13 +37,78 @@ const HomePage = () => {
         </p>
       </div>
       <br />
-      <div className="scroll-container">
+      <div className="slider">
+        <div className="slide-track">
+          <div className="slide">
+            <img src={wagyu} alt="wagyu" />
+          </div>
+          <div className="slide">
+            <img src={steak} alt="steak" />
+          </div>
+          <div className="slide">
+            <img src={profiteroles} alt="profiteroles" />
+          </div>
+          <div className="slide">
+            <img src={escargot} alt="escargot" />
+          </div>
+          <div className="slide">
+            <img src={poisson} alt="poisson" />
+          </div>
+          <div className="slide">
+            <img src={wagyu} alt="wagyu" />
+          </div>
+          <div className="slide">
+            <img src={steak} alt="steak" />
+          </div>
+          <div className="slide">
+            <img src={profiteroles} alt="profiteroles" />
+          </div>
+          <div className="slide">
+            <img src={escargot} alt="escargot" />
+          </div>
+          <div className="slide">
+            <img src={poisson} alt="poisson" />
+          </div>
+          {/* Duplicate the slides for infinite effect */}
+          <div className="slide">
+            <img src={wagyu} alt="wagyu" />
+          </div>
+          <div className="slide">
+            <img src={steak} alt="steak" />
+          </div>
+          <div className="slide">
+            <img src={profiteroles} alt="profiteroles" />
+          </div>
+          <div className="slide">
+            <img src={escargot} alt="escargot" />
+          </div>
+          <div className="slide">
+            <img src={poisson} alt="poisson" />
+          </div>
+          <div className="slide">
+            <img src={wagyu} alt="wagyu" />
+          </div>
+          <div className="slide">
+            <img src={steak} alt="steak" />
+          </div>
+          <div className="slide">
+            <img src={profiteroles} alt="profiteroles" />
+          </div>
+          <div className="slide">
+            <img src={escargot} alt="escargot" />
+          </div>
+          <div className="slide">
+            <img src={poisson} alt="poisson" />
+          </div>
+        </div>
+      </div>
+      {/* <div className="scroll-container">
         <img src={wagyu} alt="wagyu" />
         <img src={steak} alt="steak" />
         <img src={profiteroles} alt="profiteroles" />
         <img src={escargot} alt="escargot" />
         <img src={poisson} alt="poisson" />
-      </div>
+      </div> */}
       <h3>
         <div className={`modal ${isModalOpen ? "open" : ""}`}>
           <div className="modal-content">
@@ -124,13 +144,6 @@ const HomePage = () => {
       <footer>
         Contact us (816)-474-6060, lefoufrog@yahoo.com, 400 E. 5th St. Kansas
         City Missouri 64106
-        <div
-          className="review-widget_net"
-          data-uuid="9b216c0e-fc8f-4568-afa6-7867b403de1a"
-          data-template="10"
-          data-lang="en"
-          data-theme="light"
-        ></div>
       </footer>
     </div>
   );

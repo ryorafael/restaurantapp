@@ -4,49 +4,6 @@ import "../styles/dinnermenu.css";
 const DinnerMenu = () => {
   return (
     <div>
-      <nav>
-        <a href="/">Home</a>
-        <div className="dropdown">
-          <a href className="dropbtn">
-            La Carte
-          </a>
-          <div className="dropdown-content">
-            <a href="/menu">Dinner Menu</a>
-            <a href="/cocktail">Cocktail Menu</a>
-            <a href="/wine">Wine List</a>
-            <a href="/dessert">Desserts</a>
-          </div>
-        </div>
-        <a href="/events">Events</a>
-        <a href="/giftcertificates">Gift Certificates</a>
-        <div className="dropdown">
-          <a className="dropbtn">Social Media</a>
-          <div className="dropdown-content">
-            <a
-              href="https://www.facebook.com/p/le-Fou-Frog-100063884143223/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Facebook
-            </a>
-            <a
-              href="https://www.instagram.com/lefoufrog/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.lefoufrog.com/blog"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Blog
-            </a>
-          </div>
-        </div>
-        <a href="/aboutus">About us</a>
-      </nav>
       <h1>
         Le Fou Frog <br />
         La Carte du Soir
