@@ -1,3 +1,4 @@
+/* #region General styles */
 html {
   scroll-behavior: smooth;
 }
@@ -26,55 +27,66 @@ h4 {
   font-family: "Cormorant Garamond", serif;
 }
 
-/* #region navbar */
-nav {
-  display: flex;
-  overflow: hidden;
-  justify-content: space-evenly;
-  padding: 4px 60px;
-  background-color: #58784f;
+p {
+  justify-content: center;
+  text-align: center;
   font-family: "Playfair Display", serif;
 }
 
-/* Links inside the navbar */
-nav a {
-  float: left;
-  font-family: inherit;
-  justify-content: space-between;
-  align-items: center;
+h2 {
+  font-size: 20px;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 2px;
+  color: black;
+}
+
+.intro {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  max-width: 800px;
+  display: block;
+}
+/* #endregion General styles */
+
+/* Navbar Styles */
+.navbar {
+  background-color: #58784f;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 4px 60px;
+  transition: top 0.3s;
+  z-index: 1000;
+}
+
+.nav-link {
+  font-family: "Playfair Display", serif;
   text-decoration: none;
   color: #000000;
-  height: 15px;
   padding: 14px 16px;
-  font-weight: 800px;
+  font-weight: 800;
   margin: 0;
+  cursor: pointer;
 }
 
-/* The dropdown container */
 .dropdown {
-  float: left;
-  overflow: hidden;
+  position: relative;
+  display: inline-block;
 }
 
-/* Dropdown button */
-.dropdown .dropbtn {
-  font-size: 16px;
-  border: none;
-  outline: none;
-  color: black;
+.dropbtn {
+  font-family: "Playfair Display", serif;
+  text-decoration: none;
+  color: #000000;
   padding: 14px 16px;
+  font-weight: 800;
   background-color: inherit;
-  font-family: inherit; /* Important for vertical align on mobile phones */
-  margin: 0; /* Important for vertical align on mobile phones */
+  border: none;
+  cursor: pointer;
 }
 
-/* Add a red background color to navbar links on hover */
-nav a:hover,
-.dropdown:hover .dropbtn {
-  background-color: #f8cfaf;
-}
-
-/* Dropdown content (hidden by default) */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -85,28 +97,32 @@ nav a:hover,
   border-radius: 10px;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
-  float: none;
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   text-align: center;
+  border-radius: 10px;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: #f8cfaf;
+}
+
 /* Responsive Styles for Mobile */
 @media only screen and (max-width: 600px) {
-  nav {
+  .navbar {
     flex-direction: column;
     align-items: center;
   }
 
-  nav a {
+  .nav-link {
     float: none;
     text-align: center;
     padding: 10px;
@@ -123,39 +139,13 @@ nav a:hover,
     text-align: center;
   }
 
-  .dropdown-content a {
-    padding: 10px;
-  }
-
   .dropdown:hover .dropdown-content {
     display: block;
   }
 }
-/* #endregion navbar*/
+/* #endregion Navbar */
 
-h2 {
-  font-size: 20px;
-  font-family: "Cormorant Garamond", serif;
-  letter-spacing: 2px;
-  color: black;
-}
-
-.intro {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
-  max-width: 800px;
-  display: block;
-}
-
-p {
-  justify-content: center;
-  text-align: center;
-  font-family: "Playfair Display", serif;
-}
-
-/* #region button */
-
+/* #region Button */
 .button-18 {
   align-items: center;
   background-color: #58784f;
@@ -189,12 +179,12 @@ p {
 
 .button-18:hover,
 .button-18:focus {
-  background-color: #11651c;
+  background-color: #709078;
   color: #ffffff;
 }
 
 .button-18:active {
-  background: #0e701e;
+  background: #709078;
   color: rgb(255, 255, 255, 0.7);
 }
 
@@ -203,33 +193,9 @@ p {
   background: rgba(0, 0, 0, 0.08);
   color: rgba(0, 0, 0, 0.3);
 }
+/* #endregion Button */
 
-/* #endregion button*/
-
-.days {
-  font-family: "Playfair Display", serif;
-}
-
-.hours {
-  font-family: "Playfair Display", serif;
-}
-
-.open-hours {
-  font-family: "Playfair Display", serif;
-  margin-left: right;
-  margin-right: right;
-  display: block;
-  padding: 100px;
-  max-width: 800px;
-}
-
-footer {
-  margin: auto;
-  font-family: "Playfair Display", serif;
-}
-
-/* #region header img */
-
+/* #region Header Image */
 .imageheader2 {
   display: flex;
   flex-direction: row;
@@ -244,12 +210,9 @@ footer {
   height: auto;
   object-fit: contain;
 }
+/* #endregion Header Image */
 
-/* #endregion header img */
-
-/*div position relative 
-logo absolute*/
-
+/* #region Reservation Modal */
 #reservationModal {
   display: none;
   position: fixed; /* Stay in place */
@@ -277,18 +240,9 @@ logo absolute*/
   font-size: 28px;
   font-weight: bold;
 }
+/* #endregion Reservation Modal */
 
-/* div.scroll-container {
-  background-color: #58784f;
-  overflow: auto;
-  white-space: nowrap;
-  padding: 10px;
-}
-
-div.scroll-container img {
-  padding: 10px;
-} */
-
+/* #region Slider */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -334,3 +288,24 @@ div.scroll-container img {
 .slide img {
   padding: 10px;
 }
+/* #endregion Slider */
+
+/* #region Footer */
+.footer-padding {
+  padding: 75px;
+  background-color: #77b09f;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.open-hours,
+.address,
+.contact,
+.links,
+.reserve-button,
+.social-media {
+  display: flex;
+  flex-direction: column;
+}
+/* #endregion Footer */

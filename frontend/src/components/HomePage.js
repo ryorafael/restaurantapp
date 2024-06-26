@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState } from "react";
 import "../styles/index.css";
 import headerImage from "../assets/header2.png";
 import wagyu from "../assets/wagyu1.png";
@@ -6,12 +6,13 @@ import steak from "../assets/steakaupoivrenew.webp";
 import profiteroles from "../assets/profiteroles1.png";
 import escargot from "../assets/escargot2.png";
 import poisson from "../assets/poisson.png";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [isModalOpen, setModalOpen] = useState(false);
 
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  // const openModal = () => setModalOpen(true);
+  // const closeModal = () => setModalOpen(false);
 
   return (
     <div>
@@ -69,22 +70,6 @@ const HomePage = () => {
           <div className="slide">
             <img src={poisson} alt="poisson" />
           </div>
-          {/* Duplicate the slides for infinite effect */}
-          <div className="slide">
-            <img src={wagyu} alt="wagyu" />
-          </div>
-          <div className="slide">
-            <img src={steak} alt="steak" />
-          </div>
-          <div className="slide">
-            <img src={profiteroles} alt="profiteroles" />
-          </div>
-          <div className="slide">
-            <img src={escargot} alt="escargot" />
-          </div>
-          <div className="slide">
-            <img src={poisson} alt="poisson" />
-          </div>
           <div className="slide">
             <img src={wagyu} alt="wagyu" />
           </div>
@@ -109,7 +94,7 @@ const HomePage = () => {
         <img src={escargot} alt="escargot" />
         <img src={poisson} alt="poisson" />
       </div> */}
-      <h3>
+      {/* <h3>
         <div className={`modal ${isModalOpen ? "open" : ""}`}>
           <div className="modal-content">
             <span className="close" onClick={closeModal}>
@@ -134,17 +119,32 @@ const HomePage = () => {
         <button className="button-18" onClick={openModal}>
           Reservations
         </button>
-      </h3>
-      <div className="open-hours">
-        <h5>Our Hours</h5>
-        <span className="days">Tuesday to Sunday</span>
-        <br />
-        <span className="hours">5 pm to 9 pm</span>
+      </h3> */}
+      <div className="footer-padding">
+        <div className="open-hours">
+          <h5>Our Hours</h5>
+          <span className="days">Tuesday to Sunday</span>
+          <br />
+          <span className="hours">5 pm to 9 pm</span>
+        </div>
+        <div className="address">
+          <h5>400 E. 5th Street Kansas City, Missouri 64114</h5>
+        </div>
+        <div className="contact">
+          Contact us (816)-474-6060, lefoufrog@yahoo.com
+        </div>
+        <div className="links">
+          <Link to="/menu">Dinner Menu</Link>
+          <Link to="/cocktail">Cocktail Menu</Link>
+          <Link to="/wine">Wine List</Link>
+          <Link to="/dessert">Dessert Menu</Link>
+          <Link to="events">Events</Link>
+          <Link to="giftcertificates">Gift Certificates</Link>
+          <Link to="aboutus">About Us</Link>
+        </div>
+        <div className="reserve-button"></div>
+        <div className="social-media"></div>
       </div>
-      <footer>
-        Contact us (816)-474-6060, lefoufrog@yahoo.com, 400 E. 5th St. Kansas
-        City Missouri 64106
-      </footer>
     </div>
   );
 };
