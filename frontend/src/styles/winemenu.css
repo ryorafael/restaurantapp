@@ -1,0 +1,74 @@
+h3 {
+  text-align: center;
+  font-size: 25px;
+  font-style: oblique;
+  text-shadow: 2px 2px 4px rgb(32, 72, 32);
+}
+
+.description {
+  display: auto;
+  text-align: center;
+  font-size: 17px;
+  font-family: "Playfair Display", serif;
+}
+
+.price {
+  text-align: end;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+}
+
+hr {
+  border-bottom: 1px solid #709078;
+}
+
+.health {
+  text-align: center;
+}
+
+.winelist {
+  background-color: #f7e9cd;
+  border: thick double #709078;
+  box-shadow: 5px 5px 5px #c3c5da;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  max-width: 800px;
+  border-radius: 10px;
+}
+
+.item {
+  text-align: center;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+footer {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 37px;
+  color: #58784f;
+  font-family: "Cormorant Garamond", serif;
+  padding-top: 48px;
+}
+
+body {
+  margin: auto;
+}
+
+p {
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+}
+
+.food {
+  font-family: "Cormorant Garamond", serif;
+  color: #58784f;
+  font-size: 23px;
+  display: auto;
+  text-align: center;
+}

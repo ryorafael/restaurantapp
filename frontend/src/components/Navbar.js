@@ -33,7 +33,7 @@ const Navbar = () => {
         <div className="dropdown-content">
           <Link to="/menu">Dinner Menu</Link>
           <Link to="/cocktail">Cocktail Menu</Link>
-          <Link to="/wine">Wine List</Link>
+          <Link to="/wine-menu">Wine List</Link>
           <Link to="/dessert">Dessert Menu</Link>
         </div>
       </div>
@@ -64,6 +64,11 @@ const Navbar = () => {
             Instagram
           </a>
         </div>
+      </div>
+      <div className="nav-register">
+        <Link to="/register" className="register-button">
+          Register
+        </Link>
       </div>
     </nav>
   );
