@@ -66,7 +66,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="nav-register">
-        <Link to="/register" className="register-button">
+        <Link to="/registration" className="register-button">
           Register
         </Link>
       </div>

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import api from "../api";
 import "../styles/Register.css";
+import foodPresentation from "../assets/foodPresentation.webp"; // Import the image
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
-  const { name, email, password } = formData;
+  const { email, password, confirmPassword } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,46 +26,41 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <h2>Register</h2>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={onChange}
-            placeholder="Enter your name"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+      <div className="register-frame">
+        <img
+          src={foodPresentation}
+          alt="Food Presentation"
+          className="register-image"
+        />
+        <div className="register-form">
+          <h2>Sign up</h2>
           <input
             type="email"
-            id="email"
             name="email"
             value={email}
             onChange={onChange}
-            placeholder="Enter your email"
+            placeholder="Email"
             required
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
           <input
             type="password"
-            id="password"
             name="password"
             value={password}
             onChange={onChange}
-            placeholder="Enter your password"
+            placeholder="Create password"
             required
           />
+          <input
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={onChange}
+            placeholder="Confirm password"
+            required
+          />
+          <button type="submit">Register</button>
         </div>
-        <button type="submit">Register</button>
-      </form>
+      </div>
     </div>
   );
 };

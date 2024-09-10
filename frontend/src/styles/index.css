@@ -51,7 +51,7 @@ h2 {
 
 /* Navbar Styles */
 .navbar {
-  background-color: #58784f;
+  background-color: #6f784f;
   position: fixed;
   width: 100%;
   display: flex;
@@ -64,7 +64,7 @@ h2 {
 .nav-link {
   font-family: "Playfair Display", serif;
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
   padding: 14px 16px;
   font-weight: 800;
   margin: 0;
@@ -79,7 +79,7 @@ h2 {
 .dropbtn {
   font-family: "Playfair Display", serif;
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
   padding: 14px 16px;
   font-weight: 800;
   background-color: inherit;
