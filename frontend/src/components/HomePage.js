@@ -30,31 +30,6 @@ const HomePage = () => {
       <br />
 
       <Carousel />
-      <div className="footer-padding">
-        <div className="open-hours">
-          <h5>Our Hours</h5>
-          <span className="days">Tuesday to Sunday</span>
-          <br />
-          <span className="hours">5 pm to 9 pm</span>
-        </div>
-        <div className="address">
-          <h5>400 E. 5th Street Kansas City, Missouri 64114</h5>
-        </div>
-        <div className="contact">
-          Contact us (816)-474-6060, lefoufrog@yahoo.com
-        </div>
-        <div className="links">
-          <Link to="/menu">Dinner Menu</Link>
-          <Link to="/cocktail">Cocktail Menu</Link>
-          <Link to="/wine">Wine List</Link>
-          <Link to="/dessert">Dessert Menu</Link>
-          <Link to="events">Events</Link>
-          <Link to="giftcertificates">Gift Certificates</Link>
-          <Link to="aboutus">About Us</Link>
-        </div>
-        <div className="reserve-button"></div>
-        <div className="social-media"></div>
-      </div>
     </div>
   );
 };

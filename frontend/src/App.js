@@ -9,6 +9,7 @@ import Events from "./components/Events";
 import "../src/styles/index.css";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/wine-menu" element={<WineMenu />} />
           <Route path="/registration" element={<Register />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

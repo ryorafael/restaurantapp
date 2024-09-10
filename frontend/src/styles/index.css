@@ -306,23 +306,3 @@ h2 {
   padding: 10px;
 }
 /* #endregion Slider */
-
-/* #region Footer */
-.footer-padding {
-  padding: 75px;
-  background-color: #77b09f;
-  display: grid;
-  gap: 50px;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.open-hours,
-.address,
-.contact,
-.links,
-.reserve-button,
-.social-media {
-  display: flex;
-  flex-direction: column;
-}
-/* #endregion Footer */
