@@ -19,7 +19,7 @@ const HomePage = () => {
       <h2>Bienvenue à Le Fou Frog</h2>
       <br />
       <div className="intro">
-        <p>
+        <p className="intro">
           Since 1996, Le Fou Frog has been a bit of France and New York City
           tucked away on the corner of 5th and Oak in Kansas City's River
           Market. Chef/Proprietor Mano Rafael and wife, Barbara, invite you to

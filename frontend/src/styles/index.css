@@ -5,6 +5,7 @@ html {
 
 body {
   margin: auto;
+  background-color: #58784f;
 }
 
 p,
@@ -14,8 +15,7 @@ h5 {
 
 h1,
 h2,
-h3,
-footer {
+h3 {
   text-align: center;
   color: #58784f;
 }
@@ -27,14 +27,15 @@ h4 {
   font-family: "Cormorant Garamond", serif;
 }
 
-p {
+.intro {
   justify-content: center;
   text-align: center;
   font-family: "Playfair Display", serif;
+  font-size: 18px;
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 25px;
   font-family: "Cormorant Garamond", serif;
   letter-spacing: 2px;
   color: black;
@@ -56,12 +57,16 @@ h2 {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center; /* Align vertically */
   padding: 4px 60px;
   transition: top 0.3s;
   z-index: 1000;
 }
 
-.nav-link {
+.nav-link,
+.dropbtn,
+.register-button {
+  background-color: #6f784f;
   font-family: "Playfair Display", serif;
   text-decoration: none;
   color: #ffffff;
@@ -69,27 +74,25 @@ h2 {
   font-weight: 800;
   margin: 0;
   cursor: pointer;
+  height: 50px; /* Consistent height */
+  display: flex;
+  align-items: center; /* Vertically center text */
+  box-sizing: border-box;
+  font-size: 1.2rem;
 }
 
 .dropdown {
   position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  font-family: "Playfair Display", serif;
-  text-decoration: none;
-  color: #ffffff;
-  padding: 14px 16px;
-  font-weight: 800;
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 50px; /* Ensure uniform height */
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
+  top: 100%; /* Ensure dropdown appears below the button */
+  left: 0;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -104,6 +107,7 @@ h2 {
   display: block;
   text-align: center;
   border-radius: 10px;
+  font-size: 16px; /* Uniform font size */
 }
 
 .dropdown:hover .dropdown-content {
@@ -115,21 +119,14 @@ h2 {
   background-color: #f8cfaf;
 }
 
-.nav-register {
-  display: flex;
-  align-items: center;
-}
-
 .register-button {
-  font-family: "Playfair Display", serif;
-  text-decoration: none;
-  color: #000000;
-  padding: 14px 16px;
-  font-weight: 800;
   background-color: #f8cfaf;
+  color: #000000;
   border: none;
   border-radius: 10px;
-  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 800;
+  box-sizing: border-box;
 }
 
 /* Responsive Styles for Mobile */
@@ -162,56 +159,6 @@ h2 {
 }
 /* #endregion Navbar */
 
-/* #region Button */
-.button-18 {
-  align-items: center;
-  background-color: #58784f;
-  border: 0;
-  border-radius: 100px;
-  box-sizing: border-box;
-  color: #ffffff;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: "Playfair Display", serif;
-  font-size: 14px;
-  font-weight: 400;
-  justify-content: center;
-  line-height: 20px;
-  max-width: 480px;
-  min-height: 40px;
-  min-width: 0px;
-  overflow: hidden;
-  padding: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  text-align: center;
-  touch-action: manipulation;
-  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
-}
-
-.button-18:hover,
-.button-18:focus {
-  background-color: #709078;
-  color: #ffffff;
-}
-
-.button-18:active {
-  background: #709078;
-  color: rgb(255, 255, 255, 0.7);
-}
-
-.button-18:disabled {
-  cursor: not-allowed;
-  background: rgba(0, 0, 0, 0.08);
-  color: rgba(0, 0, 0, 0.3);
-}
-/* #endregion Button */
-
 /* #region Header Image */
 .imageheader2 {
   display: flex;
@@ -228,36 +175,6 @@ h2 {
   object-fit: contain;
 }
 /* #endregion Header Image */
-
-/* #region Reservation Modal */
-#reservationModal {
-  display: none;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #f8cfaf;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #ca0000;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-/* #endregion Reservation Modal */
 
 /* #region Slider */
 @keyframes scroll {
