@@ -116,12 +116,12 @@ h2 {
 
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #f8cfaf;
+  background-color: #ffdcc9;
 }
 
 .register-button {
-  background-color: #f8cfaf;
-  color: #000000;
+  background-color: #4f7869;
+  color: #ffffff;
   border: none;
   border-radius: 10px;
   padding: 14px 16px;
