@@ -1,0 +1,106 @@
+/* Container for the reservation form and image */
+.reservation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: #4f7869;
+  position: relative;
+  min-height: 100vh; /* Full screen height */
+}
+
+/* Reservation form styling */
+.reservation-form {
+  position: relative; /* Allows the form to appear in front of the image */
+  z-index: 2; /* Ensures form is in front */
+  width: 50%; /* Constrain width for centering */
+  background-color: rgba(255, 255, 255, 0.9); /* Transparent background */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.reservation-form h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #4f7869;
+}
+
+/* Form layout styling */
+.reservation-form form {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Left and right columns */
+.form-left,
+.form-right {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+
+/* Input fields */
+label {
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+  color: #4f7869;
+  font-family: "Playfair Display", serif;
+}
+
+input,
+textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  font-size: 1rem;
+  font-family: "Playfair Display", serif;
+}
+
+/* Textarea field */
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* Submit button */
+button {
+  background-color: #495d41;
+  color: white;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: "Playfair Display", serif;
+  margin-top: 20px;
+  align-self: center;
+}
+
+button:hover {
+  background-color: #3c5034;
+}
+
+/* Image section behind form */
+.reservation-image {
+  position: absolute; /* Position the image behind the form */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1; /* Place image behind the form */
+  opacity: 0.6; /* Light opacity to blend with form */
+  filter: blur(2px); /* Slight blur for blending effect */
+}
+
+.reservation-image img {
+  width: 100%; /* Stretch the image across the whole background */
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire area */
+  border-radius: 10px;
+}

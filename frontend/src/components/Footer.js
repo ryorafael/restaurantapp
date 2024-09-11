@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 import logo from "../assets/LFF LOGO TRANSPARENT.webp";
 import "../styles/Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +30,9 @@ const Footer = () => {
             <Link to="/giftcertificates">Gift Cards</Link>
           </li>
           <li>
-            <Link to="/reservations">Reservations</Link>
+            <Link smooth to="/#reservation-section">
+              Reservations
+            </Link>
           </li>
         </ul>
       </div>
