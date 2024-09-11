@@ -3,7 +3,6 @@ import reservationImage from "../assets/frontoffrog.jpeg";
 import "../styles/Reservation.css";
 import DatePicker from "react-datepicker"; // Import DatePicker
 import "react-datepicker/dist/react-datepicker.css"; // Import DatePicker CSS
-import { addDays } from "date-fns"; // Import date functions
 
 const Reservation = () => {
   const [formData, setFormData] = useState({
