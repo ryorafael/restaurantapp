@@ -1,0 +1,66 @@
+/* General Styling for the Cocktail Menu */
+.menuFrame {
+  border: 12px solid #58784f;
+  padding: 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  background-color: #f7e9cd;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 37px;
+  color: #000000;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.description {
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 25px;
+  font-style: oblique;
+  text-shadow: 2px 2px 4px rgb(32, 72, 32);
+}
+
+.item {
+  text-align: center;
+  margin: 12px;
+}
+
+.drink {
+  font-family: "Cormorant Garamond", serif;
+  color: #58784f;
+  font-size: 23px;
+  text-align: center;
+}
+
+.price {
+  text-align: end;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+}
+
+.separator {
+  border: none;
+  height: 2px;
+  background-color: #709078;
+  margin: 20px 0;
+}
+
+.footer {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+  font-family: "Playfair Display", serif;
+}

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import DinnerMenu from "./components/Menu";
 import WineMenu from "./components/WineMenu";
+import Dessert from "./components/Dessert";
+import Cocktails from "./components/Cocktails";
 import GiftCertificate from "./components/GiftCertificate";
 import AboutUs from "./components/AboutUs";
 import Events from "./components/Events";
@@ -19,6 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={<DinnerMenu />} />
+          <Route path="/cocktails" element={<Cocktails />} />
+          <Route path="/dessert" element={<Dessert />} />
           <Route path="/giftcertificate" element={<GiftCertificate />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/events" element={<Events />} />

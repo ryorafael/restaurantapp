@@ -1,0 +1,55 @@
+/* General Styling for the Dessert Menu */
+.menuFrame {
+  border: 12px solid #58784f;
+  padding: 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  background-color: #f7e9cd;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 37px;
+  color: #000000;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 25px;
+  font-style: oblique;
+  text-shadow: 2px 2px 4px rgb(32, 72, 32);
+}
+
+.item {
+  text-align: center;
+  margin: 12px;
+}
+
+.food {
+  font-family: "Cormorant Garamond", serif;
+  color: #58784f;
+  font-size: 23px;
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+}
+
+.price {
+  text-align: end;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+}
+
+.separator {
+  border: none;
+  height: 2px;
+  background-color: #709078;
+  margin: 20px 0;
+}

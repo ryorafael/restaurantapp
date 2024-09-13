@@ -32,7 +32,7 @@ const Navbar = () => {
         <button className={styles.dropbtn}>La Carte</button>
         <div className={styles.dropdownContent}>
           <Link to="/menu">Dinner Menu</Link>
-          <Link to="/cocktail">Cocktail Menu</Link>
+          <Link to="/cocktails">Cocktail Menu</Link>
           <Link to="/wine-menu">Wine List</Link>
           <Link to="/dessert">Dessert Menu</Link>
         </div>
