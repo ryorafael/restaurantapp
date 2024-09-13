@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../styles/index.css"; // Import the CSS file for navbar styles
+import styles from "../styles/Navbar.module.css"; // Correct import for CSS module
 
 const Navbar = () => {
   const [prevScrollpos, setPrevScrollpos] = useState(window.pageYOffset);
@@ -24,31 +24,31 @@ const Navbar = () => {
   }, [prevScrollpos]);
 
   return (
-    <nav className="navbar" style={{ top: `${top}px` }}>
-      <Link to="/" className="nav-link">
+    <nav className={styles.navbar} style={{ top: `${top}px` }}>
+      <Link to="/" className={styles.navLink}>
         Home
       </Link>
-      <div className="dropdown">
-        <button className="dropbtn">La Carte</button>
-        <div className="dropdown-content">
+      <div className={styles.dropdown}>
+        <button className={styles.dropbtn}>La Carte</button>
+        <div className={styles.dropdownContent}>
           <Link to="/menu">Dinner Menu</Link>
           <Link to="/cocktail">Cocktail Menu</Link>
           <Link to="/wine-menu">Wine List</Link>
           <Link to="/dessert">Dessert Menu</Link>
         </div>
       </div>
-      <Link to="/events" className="nav-link">
+      <Link to="/events" className={styles.navLink}>
         Events
       </Link>
-      <Link to="/giftcertificate" className="nav-link">
+      <Link to="/giftcertificate" className={styles.navLink}>
         Gift Certificates
       </Link>
-      <Link to="/aboutus" className="nav-link">
+      <Link to="/aboutus" className={styles.navLink}>
         About Us
       </Link>
-      <div className="dropdown">
-        <button className="dropbtn">Social Media</button>
-        <div className="dropdown-content">
+      <div className={styles.dropdown}>
+        <button className={styles.dropbtn}>Social Media</button>
+        <div className={styles.dropdownContent}>
           <a
             href="https://www.facebook.com/lefoufrogkc"
             target="_blank"
@@ -65,8 +65,8 @@ const Navbar = () => {
           </a>
         </div>
       </div>
-      <div className="nav-register">
-        <Link to="/registration" className="register-button">
+      <div className={styles.navRegister}>
+        <Link to="/registration" className={styles.registerButton}>
           Register
         </Link>
       </div>
