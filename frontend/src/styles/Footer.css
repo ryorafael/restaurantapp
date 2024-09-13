@@ -8,17 +8,28 @@
   border-top: 1px solid #ffffff;
 }
 
+.footer-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .footer-section ul {
   list-style: none;
-  padding: 10px;
-  text-align: left;
+  padding: 0;
+  text-align: center;
 }
 
 .footer-section li {
   color: #fff;
   font-family: "Playfair Display", serif;
   font-size: 18px;
-  margin: 30px 0;
+  margin: 15px 0;
+}
+
+.footer-logo {
+  flex: 1;
+  text-align: center;
 }
 
 .footer-logo img {
@@ -28,12 +39,7 @@
 }
 
 .footer-socials {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer-socials {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,7 +48,7 @@
 .footer-socials a {
   color: white;
   font-size: 24px;
-  margin: 0 10px;
+  margin: 0 15px;
   text-decoration: none;
 }
 
@@ -50,25 +56,30 @@
   color: #e5e5e5;
 }
 
-.footer-section ul li:hover {
-  color: #e5e5e5;
-}
-
+/* Update the link styling */
 .footer-section ul li a {
   text-decoration: none;
-  color: #fff;
+  color: #fff; /* Default link color: white */
   font-size: 18px;
 }
 
-.footer-section ul li a:hover {
-  color: #e5e5e5;
+/* Ensure links remain white even when visited */
+.footer-section ul li a:link,
+.footer-section ul li a:visited {
+  color: #fff; /* Set visited link color to white */
+}
+
+/* Hover and active states for links */
+.footer-section ul li a:hover,
+.footer-section ul li a:active {
+  color: #e5e5e5; /* Change color to light gray on hover or active */
 }
 
 .footer-info {
+  width: 100%;
   text-align: center;
   color: #fff;
   margin-top: 20px;
-  width: 100%;
 }
 
 .open-hours h5,
@@ -84,6 +95,7 @@
   font-size: 16px;
   font-family: "Playfair Display", serif;
   margin: 5px 0;
+  color: #ffffff;
 }
 
 .footer-info div {

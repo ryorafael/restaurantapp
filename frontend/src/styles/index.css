@@ -1,47 +1,38 @@
-/* #region General styles */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: auto;
-  background-color: #58784f;
-}
-
-p,
-h5 {
-  color: black;
-}
-
-h1,
-h2,
-h3 {
-  text-align: center;
-  color: #58784f;
-}
-
-h4 {
-  text-align: center;
-  color: #58784f;
-  font-size: 15px;
-  font-family: "Cormorant Garamond", serif;
-}
-
 .intro {
   justify-content: center;
   text-align: center;
   font-family: "Playfair Display", serif;
   font-size: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  max-width: 800px;
+  display: block;
+  color: #ffffff;
 }
 
-h2 {
+.homepage-header {
   font-size: 25px;
   font-family: "Cormorant Garamond", serif;
   letter-spacing: 2px;
-  color: black;
+  color: #ffffff;
+  text-align: center;
 }
 
-.intro {
+.homepage {
+  background-color: #58784f;
+  padding: 10px;
+}
+
+.est {
+  font-size: 15px;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.intro.div {
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
@@ -49,115 +40,6 @@ h2 {
   display: block;
 }
 /* #endregion General styles */
-
-/* Navbar Styles */
-.navbar {
-  background-color: #6f784f;
-  position: fixed;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center; /* Align vertically */
-  padding: 4px 60px;
-  transition: top 0.3s;
-  z-index: 1000;
-}
-
-.nav-link,
-.dropbtn,
-.register-button {
-  background-color: #6f784f;
-  font-family: "Playfair Display", serif;
-  text-decoration: none;
-  color: #ffffff;
-  padding: 14px 16px;
-  font-weight: 800;
-  margin: 0;
-  cursor: pointer;
-  height: 50px; /* Consistent height */
-  display: flex;
-  align-items: center; /* Vertically center text */
-  box-sizing: border-box;
-  font-size: 1.2rem;
-}
-
-.dropdown {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 50px; /* Ensure uniform height */
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%; /* Ensure dropdown appears below the button */
-  left: 0;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  border-radius: 10px;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 16px; /* Uniform font size */
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.navbar a:hover,
-.dropdown:hover .dropbtn {
-  background-color: #ffdcc9;
-}
-
-.register-button {
-  background-color: #4f7869;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  padding: 14px 16px;
-  font-weight: 800;
-  box-sizing: border-box;
-}
-
-/* Responsive Styles for Mobile */
-@media only screen and (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .nav-link {
-    float: none;
-    text-align: center;
-    padding: 10px;
-  }
-
-  .dropdown {
-    float: none;
-    text-align: center;
-  }
-
-  .dropdown-content {
-    position: static;
-    display: none;
-    text-align: center;
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-}
-/* #endregion Navbar */
 
 /* #region Header Image */
 .imageheader2 {

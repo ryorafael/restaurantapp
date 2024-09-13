@@ -1,3 +1,15 @@
+/* General Styling for the Menu Frame */
+.menu-frame {
+  border: 12px solid #58784f; /* Dark green frame */
+  padding: 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  background-color: #f7e9cd; /* Menu background */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+  border-radius: 20px; /* Smooth rounded edges */
+}
+
+/* Maintain existing text and styles */
 h3 {
   text-align: center;
   font-size: 25px;
@@ -22,19 +34,13 @@ hr {
   border-bottom: 1px solid #709078;
 }
 
-.health {
-  text-align: center;
-}
-
 .dinnermenu {
   background-color: #f7e9cd;
-  border: thick double #709078;
-  box-shadow: 5px 5px 5px #c3c5da;
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
-  max-width: 800px;
   border-radius: 10px;
+  text-align: left; /* Left-align text within the menu */
 }
 
 .item {
@@ -43,19 +49,11 @@ hr {
   margin-right: 12px;
 }
 
-footer {
-  text-align: center;
-}
-
 h1 {
   text-align: center;
   font-size: 37px;
   color: #58784f;
   font-family: "Cormorant Garamond", serif;
-}
-
-body {
-  margin: auto;
 }
 
 p {
@@ -70,4 +68,17 @@ p {
   font-size: 23px;
   display: auto;
   text-align: center;
+}
+
+/* Optional: Add a more structured line separator between sections */
+section hr {
+  border: none;
+  height: 2px;
+  background-color: #709078;
+  margin: 20px 0;
+}
+
+/* Background for the page */
+body {
+  background-color: #ffffff; /* Ensure that the page background is white for contrast */
 }

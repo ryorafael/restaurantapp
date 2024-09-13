@@ -27,14 +27,13 @@ hr {
 }
 
 .winelist {
-  background-color: #f7e9cd;
-  border: thick double #709078;
-  box-shadow: 5px 5px 5px #c3c5da;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
+  border: 12px solid #58784f; /* Dark green frame */
+  padding: 20px;
+  margin: 40px auto;
   max-width: 800px;
-  border-radius: 10px;
+  background-color: #f7e9cd; /* Menu background */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+  border-radius: 20px; /* Smooth rounded edges */
 }
 
 .item {
@@ -43,26 +42,12 @@ hr {
   margin-right: 12px;
 }
 
-footer {
-  text-align: center;
-}
-
 h1 {
   text-align: center;
   font-size: 37px;
   color: #58784f;
   font-family: "Cormorant Garamond", serif;
   padding-top: 48px;
-}
-
-body {
-  margin: auto;
-}
-
-p {
-  text-align: center;
-  font-size: 16px;
-  font-family: "Playfair Display", serif;
 }
 
 .food {

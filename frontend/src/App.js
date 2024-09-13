@@ -6,7 +6,7 @@ import WineMenu from "./components/WineMenu";
 import GiftCertificate from "./components/GiftCertificate";
 import AboutUs from "./components/AboutUs";
 import Events from "./components/Events";
-import "../src/styles/index.css";
+import "../src/styles/App.css";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import Footer from "./components/Footer";

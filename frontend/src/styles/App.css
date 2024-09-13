@@ -1,0 +1,19 @@
+/* app.css - Global resets and minimal styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f4f4;
+  font-family: "Playfair Display", serif;
+}
+
+/* Only global base styles */
+/* h1,
+h2,
+h3,
+p {
+  color: #000000;
+  text-align: center;
+} */
