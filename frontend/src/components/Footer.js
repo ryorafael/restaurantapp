@@ -70,7 +70,8 @@ const Footer = () => {
       <div className="footer-info">
         <div className="open-hours">
           <h5>Our Hours</h5>
-          <p>Tuesday to Sunday: 5 pm to 9 pm</p>
+          <p>Tuesday to Thursday/Sunday: 5 pm to 8:30 pm</p>
+          <p>Friday and Saturday: 5 pm to 9:30 pm</p>
         </div>
         <div className="address">
           <h5>400 E. 5th Street Kansas City, Missouri 64114</h5>
