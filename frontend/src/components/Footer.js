@@ -7,7 +7,7 @@ import { faFacebookF, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer role="contentinfo" className="footer">
       <div className="footer-section">
         <ul>
           <li>
@@ -37,7 +37,9 @@ const Footer = () => {
         </ul>
       </div>
       <div className="footer-logo">
-        <img src={logo} alt="Le Fou Frog logo" />
+        <Link to="/" aria-label="Return to home: Le Fou Frog">
+          <img src={logo} alt="" />
+        </Link>
       </div>
       <div className="footer-section">
         <ul>
@@ -51,6 +53,7 @@ const Footer = () => {
       </div>
       <div className="footer-socials">
         <a
+          aria-label="Facebook of Le Fou Frog"
           href="https://www.facebook.com/lefoufrogkc"
           target="_blank"
           rel="noreferrer"
@@ -59,6 +62,7 @@ const Footer = () => {
           <FontAwesomeIcon icon={faFacebookF} />
         </a>
         <a
+          aria-label="Instagram of Le Fou Frog"
           href="https://www.instagram.com/lefoufrogkc/"
           target="_blank"
           rel="noreferrer"
@@ -69,12 +73,12 @@ const Footer = () => {
       </div>
       <div className="footer-info">
         <div className="open-hours">
-          <h5>Our Hours</h5>
+          <h3>Our Hours</h3>
           <p>Tuesday to Thursday/Sunday: 5 pm to 8:30 pm</p>
           <p>Friday and Saturday: 5 pm to 9:30 pm</p>
         </div>
         <div className="address">
-          <h5>400 E. 5th Street Kansas City, Missouri 64114</h5>
+          <p>400 E. 5th Street Kansas City, Missouri 64114</p>
         </div>
         <div className="contact-info">
           <p>Contact us: (816)-474-6060, lefoufrog@yahoo.com</p>

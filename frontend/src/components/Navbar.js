@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "../styles/Navbar.module.css"; // Correct import for CSS module
+import styles from "../styles/Navbar.module.css";
 
 const Navbar = () => {
   const [prevScrollpos, setPrevScrollpos] = useState(window.pageYOffset);
@@ -9,68 +9,86 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        setTop(0); // Show navbar
-      } else {
-        setTop(-80); // Hide navbar
-      }
+      setTop(prevScrollpos > currentScrollPos ? 0 : -80);
       setPrevScrollpos(currentScrollPos);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollpos]);
 
   return (
-    <nav className={styles.navbar} style={{ top: `${top}px` }}>
-      <Link to="/" className={styles.navLink}>
-        Home
-      </Link>
-      <div className={styles.dropdown}>
-        <button className={styles.dropbtn}>La Carte</button>
-        <div className={styles.dropdownContent}>
-          <Link to="/menu">Dinner Menu</Link>
-          <Link to="/cocktails">Cocktail Menu</Link>
-          <Link to="/wine-menu">Wine List</Link>
-          <Link to="/dessert">Dessert Menu</Link>
-        </div>
-      </div>
-      <Link to="/events" className={styles.navLink}>
-        Events
-      </Link>
-      <Link to="/giftcertificate" className={styles.navLink}>
-        Gift Certificates
-      </Link>
-      <Link to="/aboutus" className={styles.navLink}>
-        About Us
-      </Link>
-      <div className={styles.dropdown}>
-        <button className={styles.dropbtn}>Social Media</button>
-        <div className={styles.dropdownContent}>
-          <a
-            href="https://www.facebook.com/lefoufrogkc"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Facebook
-          </a>
-          <a
-            href="https://www.instagram.com/lefoufrogkc/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Instagram
-          </a>
-        </div>
-      </div>
-      <div className={styles.navRegister}>
-        <Link to="/registration" className={styles.registerButton}>
-          Register
-        </Link>
-      </div>
-    </nav>
+    <header role="banner">
+      <nav className={styles.navbar} style={{ top: `${top}px` }}>
+        <ul className={styles.flexContainer}>
+          <li className={styles.flexItem}>
+            <Link to="/" className={styles.navLink}>
+              Home
+            </Link>
+          </li>
+          <li className={`${styles.flexItem} ${styles.dropdown}`}>
+            <button className={styles.dropbtn}>La Carte</button>
+            <ul className={styles.dropdownContent}>
+              <li>
+                <Link to="/menu">Dinner Menu</Link>
+              </li>
+              <li>
+                <Link to="/cocktails">Cocktail Menu</Link>
+              </li>
+              <li>
+                <Link to="/wine-menu">Wine List</Link>
+              </li>
+              <li>
+                <Link to="/dessert">Dessert Menu</Link>
+              </li>
+            </ul>
+          </li>
+          <li className={styles.flexItem}>
+            <Link to="/events" className={styles.navLink}>
+              Events
+            </Link>
+          </li>
+          <li className={styles.flexItem}>
+            <Link to="/giftcertificate" className={styles.navLink}>
+              Gift Certificates
+            </Link>
+          </li>
+          <li className={styles.flexItem}>
+            <Link to="/aboutus" className={styles.navLink}>
+              About Us
+            </Link>
+          </li>
+          <li className={`${styles.flexItem} ${styles.dropdown}`}>
+            <button className={styles.dropbtn}>Social Media</button>
+            <ul className={styles.dropdownContent}>
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Instagram
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className={styles.flexItem}>
+            <Link to="/registration" className={styles.registerButton}>
+              Register
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
   );
 };
 

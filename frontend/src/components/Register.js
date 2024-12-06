@@ -15,6 +15,7 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
+    console.log("onSubmit");
     e.preventDefault();
     try {
       const res = await api.post("/auth/register", formData);
@@ -58,7 +59,9 @@ const Register = () => {
             placeholder="Confirm password"
             required
           />
-          <button type="submit">Register</button>
+          <button type="submit" onClick={onSubmit}>
+            Register
+          </button>
         </div>
       </div>
     </div>

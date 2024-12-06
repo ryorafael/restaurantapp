@@ -104,4 +104,22 @@
 .slide img {
   padding: 10px;
 }
+
+.play-pause-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4f7869;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 10; /* Ensure button is on top */
+}
+
+.play-pause-button:hover {
+  background-color: #414833;
+}
 /* #endregion Slider */

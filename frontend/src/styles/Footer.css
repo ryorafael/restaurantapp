@@ -1,5 +1,5 @@
 .footer {
-  background-color: #7c8651;
+  background-color: #4d5e37;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -25,6 +25,12 @@
   font-family: "Playfair Display", serif;
   font-size: 18px;
   margin: 15px 0;
+}
+
+.footer-section li:hover,
+.footer-section li:active {
+  color: white;
+  text-decoration: underline;
 }
 
 .footer-logo {
@@ -53,7 +59,9 @@
 }
 
 .footer-socials a:hover {
-  color: #e5e5e5;
+  background-color: #414833;
+  padding: 10px; /* Add padding to create space around the icon */
+  border-radius: 80%;
 }
 
 /* Update the link styling */

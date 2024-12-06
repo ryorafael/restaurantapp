@@ -109,7 +109,7 @@ const Reservation = () => {
     }
 
     // Validate guest limit
-    if (formData.guests > 6) {
+    if (formData.guests > 6 <= 0) {
       setError("For more than 6 guests, please call the restaurant");
       return;
     }
@@ -132,11 +132,16 @@ const Reservation = () => {
     <div className="reservation-container">
       <div className="reservation-form">
         <h2>Book A Table</h2>
-        {error && <p className="error">{error}</p>}
+        {error && (
+          <p role="alert" className="error">
+            {error}
+          </p>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="form-left">
-            <label>Full Name</label>
+            <label for="fullName">Full Name (required)</label>
             <input
+              id="fullName"
               type="text"
               name="fullName"
               value={formData.fullName}
@@ -144,8 +149,9 @@ const Reservation = () => {
               placeholder="Full Name"
               required
             />
-            <label>Phone Number</label>
+            <label for="phoneNumber">Phone Number</label>
             <input
+              id="phoneNumber"
               type="tel"
               name="phoneNumber"
               value={formData.phoneNumber}
@@ -153,8 +159,9 @@ const Reservation = () => {
               placeholder="Phone Number"
               required
             />
-            <label>Email</label> {/* Email field */}
+            <label for="email">Email</label> {/* Email field */}
             <input
+              id="email"
               type="email"
               name="email"
               value={formData.email}
@@ -162,8 +169,10 @@ const Reservation = () => {
               placeholder="Email Address"
               required
             />
-            <label>Date</label>
+            <label for="date">Date</label>
             <DatePicker
+              name="date"
+              id="date"
               selected={formData.date}
               onChange={handleDateChange}
               filterDate={(date) => !isInvalidDate(date)} // Disable invalid dates (not allow Mondays, holidays, or past dates)
@@ -171,24 +180,33 @@ const Reservation = () => {
               placeholderText="Select a date"
               required
             />
-            <label>
-              <input type="checkbox" name="subscribe" onChange={handleChange} />
+            <label for="subscribe">
+              <input
+                type="checkbox"
+                name="subscribe"
+                id="subscribe"
+                onChange={handleChange}
+              />
               I would like to be informed about events and news
             </label>
           </div>
 
           <div className="form-right">
-            <label>Time</label>
+            <label for="time">Time</label>
             <input
+              id="time"
               type="time"
               name="time"
+              min="17:00"
+              max="21:30"
               value={formData.time}
               onChange={handleChange}
               required
             />
 
-            <label>Guest</label>
+            <label for="guests">Guest</label>
             <input
+              id="guests"
               type="number"
               name="guests"
               value={formData.guests}
@@ -198,8 +216,9 @@ const Reservation = () => {
               required
             />
 
-            <label>Comments</label>
+            <label for="comments">Comments</label>
             <textarea
+              id="comments"
               name="comments"
               value={formData.comments}
               onChange={handleChange}
@@ -212,7 +231,7 @@ const Reservation = () => {
       </div>
 
       <div className="reservation-image">
-        <img src={reservationImage} alt="Le Fou Frog" />
+        <img src={reservationImage} alt="" />
       </div>
     </div>
   );
