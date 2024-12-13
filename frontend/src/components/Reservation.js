@@ -226,7 +226,9 @@ const Reservation = () => {
             ></textarea>
           </div>
 
-          <button type="submit">Reservation</button>
+          <button class="reservation-btn" type="submit">
+            Reservation
+          </button>
         </form>
       </div>
 
