@@ -11,7 +11,10 @@ import Events from "./components/Events";
 import "../src/styles/App.css";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
+import Login from "./components/Login";
 import Footer from "./components/Footer";
+import PrivateRoute from "./components/PrivateRoute";
+import Admin from "./components/Admin";
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/wine-menu" element={<WineMenu />} />
           <Route path="/registration" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          {/* Admin route protected with PrivateRoute */}
+          <Route path="/admin" element={<PrivateRoute element={Admin} />} />
         </Routes>
         <Footer />
       </div>

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Ilovenaib12!!",
+    "database": "restaurant_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Ilovenaib12!!",
+    "database": "restaurant_test_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "Ilovenaib12!!",
+    "database": "restaurant_prod_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

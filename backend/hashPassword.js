@@ -1,29 +1,29 @@
 const bcrypt = require("bcryptjs");
-const db = require("./config/db"); // Import MySQL connection
+const User = require("./models/User"); // Import Sequelize User model
 
-// The plain-text password you want to hash for Ryo (admin)
-const password = "123456"; // Replace with Ryo's admin password
+const email = "ryorafael18@gmail.com"; // Admin email
+const password = "123456"; // Password to hash and update
 
-// Hash the password
-bcrypt.genSalt(10, (err, salt) => {
-  if (err) throw err;
-  bcrypt.hash(password, salt, (err, hashedPassword) => {
-    if (err) throw err;
+(async () => {
+  try {
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Log the hashed password (for verification purposes)
     console.log("Hashed Password:", hashedPassword);
 
-    // Update the password for Ryo (admin) in the database
-    db.query(
-      "UPDATE users SET password = ? WHERE email = ?",
-      [hashedPassword, "ryorafael18@gmail.com"], // Update with Ryo's email
-      (err, result) => {
-        if (err) {
-          console.error("Error updating password:", err.message);
-          return;
-        }
-        console.log("Password updated successfully for Ryo (admin)!");
-      }
+    // Update the user's password in the database
+    const [updated] = await User.update(
+      { password: hashedPassword },
+      { where: { email } }
     );
-  });
-});
+
+    if (updated) {
+      console.log(`Password updated successfully for ${email}!`);
+    } else {
+      console.log(`No user found with email: ${email}`);
+    }
+  } catch (err) {
+    console.error("Error updating password:", err.message);
+  }
+})();

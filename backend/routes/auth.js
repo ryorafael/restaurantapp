@@ -1,67 +1,57 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../config/db"); // Import MySQL connection
+const User = require("../models/User"); // Import Sequelize User model
 const router = express.Router();
 
 // Register new user
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body; // Include role from the request body
 
-  // Log the incoming request body for debugging
-  console.log(req.body);
+  console.log(req.body); // Log the incoming request body for debugging
 
-  // Check if name, email, and password are provided
-  if (!name || !email || !password) {
-    return res
-      .status(400)
-      .json({ msg: "Please provide name, email, and password" });
+  // Check if all required fields are provided
+  if (!name || !email || !password || !role) {
+    return res.status(400).json({
+      msg: "Please provide name, email, password, and role",
+    });
   }
 
   try {
     // Check if user already exists
-    db.query(
-      "SELECT * FROM users WHERE email = ?",
-      [email],
-      async (err, results) => {
-        if (err) {
-          console.error("Database error:", err.message);
-          return res.status(500).send("Server error");
-        }
-        if (results.length > 0) {
-          return res.status(400).json({ msg: "User already exists" });
-        }
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ msg: "User already exists" });
+    }
 
-        // Hash the password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Insert new user into the database
-        db.query(
-          "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-          [name, email, hashedPassword],
-          (err, result) => {
-            if (err) {
-              console.error("Error inserting user:", err.message);
-              return res.status(500).send("Server error");
-            }
-            const payload = { user: { id: result.insertId } }; // Use the inserted user ID
+    // Create new user
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+    });
 
-            // Generate a JWT token
-            jwt.sign(
-              payload,
-              process.env.JWT_SECRET,
-              { expiresIn: 360000 },
-              (err, token) => {
-                if (err) {
-                  console.error("JWT Error:", err.message);
-                  return res.status(500).send("Server error");
-                }
-                res.json({ token });
-              }
-            );
-          }
-        );
+    // Create JWT payload
+    const payload = {
+      user: {
+        id: user.id,
+        role: user.role, // Include role in the payload
+      },
+    };
+
+    // Generate a JWT token
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: 3600 }, // 1 hour expiration
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
       }
     );
   } catch (err) {
@@ -74,7 +64,6 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  // Check if email and password are provided
   if (!email || !password) {
     return res
       .status(400)
@@ -83,40 +72,39 @@ router.post("/login", async (req, res) => {
 
   try {
     // Find user by email
-    db.query(
-      "SELECT * FROM users WHERE email = ?",
-      [email],
-      async (err, results) => {
-        if (err) {
-          console.error("Database error:", err.message);
-          return res.status(500).send("Server error");
-        }
-        if (results.length === 0) {
-          return res.status(400).json({ msg: "Invalid credentials" });
-        }
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      console.log("User not found for email:", email);
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
 
-        const user = results[0]; // Get the first user (there should only be one since email is unique)
+    console.log("User found:", user.toJSON()); // Log user details
 
-        // Compare the password with the hashed password in the database
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-          return res.status(400).json({ msg: "Invalid credentials" });
-        }
+    // Compare the entered password with the stored password
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log("Entered Password:", password);
+    console.log("Stored Password:", user.password);
+    console.log("Password Match:", isMatch);
 
-        // Create JWT token
-        const payload = { user: { id: user.id } };
-        jwt.sign(
-          payload,
-          process.env.JWT_SECRET,
-          { expiresIn: 360000 },
-          (err, token) => {
-            if (err) {
-              console.error("JWT Error:", err.message);
-              return res.status(500).send("Server error");
-            }
-            res.json({ token });
-          }
-        );
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    // Create JWT payload
+    const payload = {
+      user: {
+        id: user.id,
+        role: user.role,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
       }
     );
   } catch (err) {

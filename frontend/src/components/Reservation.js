@@ -109,7 +109,7 @@ const Reservation = () => {
     }
 
     // Validate guest limit
-    if (formData.guests > 6 <= 0) {
+    if (formData.guests > 6 < 0) {
       setError("For more than 6 guests, please call the restaurant");
       return;
     }

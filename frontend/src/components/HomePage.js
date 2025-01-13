@@ -1,6 +1,5 @@
 import "../styles/index.css";
 import headerImage from "../assets/header2.png";
-// import { Link } from "react-router-dom";
 import Carousel from "./Carousel.js";
 import Reservation from "./Reservation.js";
 
