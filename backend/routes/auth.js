@@ -51,7 +51,14 @@ router.post("/register", async (req, res) => {
       { expiresIn: 3600 }, // 1 hour expiration
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            role: user.role,
+          },
+        });
       }
     );
   } catch (err) {
@@ -94,7 +101,7 @@ router.post("/login", async (req, res) => {
     const payload = {
       user: {
         id: user.id,
-        role: user.role,
+        role: user.role, // Ensure role exists in your database
       },
     };
 
@@ -104,7 +111,16 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+
+        // Respond with token and user details
+        res.json({
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            role: user.role,
+          },
+        });
       }
     );
   } catch (err) {
