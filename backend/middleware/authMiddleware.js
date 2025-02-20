@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.user;
 
-    // Log the decoded user to check if role is included
+    // Log the decoded user to ensure the role is included
     console.log("Decoded User:", req.user);
 
     // Check if the user is an admin

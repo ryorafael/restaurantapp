@@ -3,6 +3,7 @@ import reservationImage from "../assets/frontoffrog.jpeg";
 import "../styles/Reservation.css";
 import DatePicker from "react-datepicker"; // Import DatePicker
 import "react-datepicker/dist/react-datepicker.css"; // Import DatePicker CSS
+import api from "../api";
 
 const Reservation = () => {
   const [formData, setFormData] = useState({
@@ -45,7 +46,7 @@ const Reservation = () => {
   };
 
   // Validate the form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate full name
@@ -116,8 +117,33 @@ const Reservation = () => {
 
     // If all validations pass
     setError("");
-    alert("Reservation submitted successfully!");
-    // Handle sending the data to the backend
+
+    try {
+      const response = await api.post("/reservations", {
+        name: formData.fullName,
+        date: formData.date,
+        time: formData.time,
+        partySize: parseInt(formData.guests, 10),
+        guestEmail: formData.email,
+        guestPhone: formData.phoneNumber,
+        comments: formData.comments || null, // Optional comments
+      });
+      alert("Reservation submitted successfully!");
+      console.log("Reservation Response:", response.data);
+      // Optionally clear the form
+      setFormData({
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+        date: "",
+        time: "",
+        guests: "",
+        comments: "",
+      });
+    } catch (err) {
+      console.error("Error submitting reservation:", err.message);
+      setError("Failed to submit reservation. Please try again.");
+    }
   };
 
   // Handle form change
