@@ -1,9 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const reservationRoutes = require("./routes/reservations");
+const sequelize = require("./config/sequelize"); // Import Sequelize instance
 
 dotenv.config();
 
@@ -15,13 +15,14 @@ app.use("/api/reservations", reservationRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+// Test Sequelize connection
+sequelize
+  .authenticate()
+  .then(() => console.log("Sequelize connected to MySQL successfully"))
+  .catch((err) => {
+    console.error("Error connecting to MySQL with Sequelize:", err);
+    process.exit(1); // Exit the process if there's an error
+  });
 
 app.get("/", (req, res) => res.send("API Running"));
 

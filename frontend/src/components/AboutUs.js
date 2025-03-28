@@ -9,11 +9,7 @@ const AboutUs = () => {
       <h1 className="about-us-title">About Us</h1>
       <div className="about-us-content">
         <div className="about-us-section">
-          <img
-            src={barbmano}
-            alt="Restaurant Owners"
-            className="about-us-image"
-          />
+          <img src={barbmano} alt="" className="about-us-image" />
           <p className="about-us-text">
             Established in 1996, when the River Market literally had tumbleweeds
             rolling down 5th Street, Le Fou Frog made its mark on Kansas City's
@@ -34,11 +30,7 @@ const AboutUs = () => {
             staff and friends blow you away with shows that cause many patrons
             to make reservations a year in advance.
           </p>
-          <img
-            src={foodPresentation}
-            alt="Restaurant Food"
-            className="about-us-image"
-          />
+          <img src={foodPresentation} alt="" className="about-us-image" />
         </div>
       </div>
     </div>

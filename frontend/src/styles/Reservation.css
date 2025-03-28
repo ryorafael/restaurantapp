@@ -31,6 +31,7 @@
 /* Form layout styling */
 .reservation-form form {
   display: flex;
+  flex-wrap: wrap; /* Allow elements to wrap */
   justify-content: space-between;
   gap: 20px;
 }
@@ -103,4 +104,30 @@ button:hover {
   height: 100%;
   object-fit: cover; /* Ensure the image covers the entire area */
   border-radius: 10px;
+}
+
+/* Mobile Styling */
+@media (max-width: 768px) {
+  /* Form layout */
+  .reservation-form {
+    width: 90%; /* Increase form width on mobile */
+    padding: 20px;
+  }
+
+  .form-left,
+  .form-right {
+    width: 100%; /* Make both columns take full width */
+  }
+
+  /* Button below text area */
+  .reservation-btn {
+    width: 100%; /* Make button full-width */
+    margin-top: 20px;
+  }
+
+  /* Adjust padding for inputs and text area on mobile */
+  input,
+  textarea {
+    font-size: 0.9rem; /* Smaller input text size on mobile */
+  }
 }

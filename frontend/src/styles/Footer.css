@@ -1,5 +1,5 @@
 .footer {
-  background-color: #7c8651;
+  background-color: #4d5e37;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -12,19 +12,6 @@
   flex: 1;
   display: flex;
   justify-content: center;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-  text-align: center;
-}
-
-.footer-section li {
-  color: #fff;
-  font-family: "Playfair Display", serif;
-  font-size: 18px;
-  margin: 15px 0;
 }
 
 .footer-logo {
@@ -53,28 +40,39 @@
 }
 
 .footer-socials a:hover {
-  color: #e5e5e5;
+  background-color: #414833;
+  padding: 10px;
+  border-radius: 80%;
 }
 
-/* Update the link styling */
+/* Footer section links */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.footer-section ul li {
+  margin: 15px 0;
+}
+
 .footer-section ul li a {
   text-decoration: none;
-  color: #fff; /* Default link color: white */
+  color: #fff;
   font-size: 18px;
 }
 
-/* Ensure links remain white even when visited */
 .footer-section ul li a:link,
 .footer-section ul li a:visited {
-  color: #fff; /* Set visited link color to white */
+  color: #fff;
 }
 
-/* Hover and active states for links */
 .footer-section ul li a:hover,
 .footer-section ul li a:active {
-  color: #e5e5e5; /* Change color to light gray on hover or active */
+  color: #e5e5e5;
 }
 
+/* Footer Info */
 .footer-info {
   width: 100%;
   text-align: center;
@@ -100,4 +98,39 @@
 
 .footer-info div {
   margin-bottom: 10px;
+}
+
+/* Mobile Styling */
+@media (max-width: 768px) {
+  .footer {
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .footer-section {
+    flex: 1;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .footer-socials {
+    flex: 1;
+    margin-top: 10px;
+  }
+
+  .footer-info {
+    margin-top: 20px;
+  }
+
+  .footer-section li {
+    font-size: 16px; /* Decrease font size for mobile */
+  }
+
+  .footer-section ul li a {
+    font-size: 16px; /* Decrease link font size */
+  }
+
+  .footer-socials a {
+    font-size: 20px; /* Reduce icon size */
+  }
 }
