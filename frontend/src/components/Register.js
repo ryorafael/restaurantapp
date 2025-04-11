@@ -1,41 +1,70 @@
-import React, { useState } from "react";
-import api from "../api"; // Import the API client
+import React, { useState, useRef } from "react";
+import api from "../api";
+import { Link } from "react-router-dom";
 import "../styles/Register.css";
-import foodPresentation from "../assets/foodPresentation.webp"; // Import the image
+import foodPresentation from "../assets/foodPresentation.webp";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "", // Add name field to form data
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const { name, email, password, confirmPassword } = formData;
+
+  // Refs to input fields
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmRef = useRef();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setSuccess(null);
 
-    // Basic password match validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name.trim()) {
+      setError("Please enter your name.");
+      requestAnimationFrame(() => nameRef.current?.focus());
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address (e.g., name@example.com)");
+      requestAnimationFrame(() => emailRef.current?.focus());
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      requestAnimationFrame(() => passwordRef.current?.focus());
+      return;
+    }
+
     if (password !== confirmPassword) {
-      return alert("Passwords do not match");
+      setError("Passwords do not match.");
+      requestAnimationFrame(() => confirmRef.current?.focus());
+      return;
     }
 
     try {
-      // Add the role as 'user' for regular users (or 'admin' if required)
-      const userData = { ...formData, role: "user" }; // Set the role as 'user' by default
-
-      // Send register request to backend
-      const res = await api.post("/auth/register", userData); // Adjust the API endpoint if needed
-      console.log(res.data);
-
-      // Redirect user to login page after successful registration
-      window.location.href = "/login"; // Or use react-router's navigate
+      const userData = { ...formData, role: "user" };
+      const res = await api.post("/auth/register", userData);
+      setSuccess("Registration successful! Redirecting to login...");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
     } catch (err) {
-      console.error(err.response?.data || err.message);
+      setError(err.response?.data?.msg || "Something went wrong");
     }
   };
 
@@ -49,41 +78,110 @@ const Register = () => {
         />
         <div className="register-form">
           <h2>Sign up</h2>
+          <p className="required-note">All fields are required.</p>
+
+          {error && (
+            <p
+              id="error-message"
+              className="form-message error"
+              role="alert"
+              aria-live="assertive"
+            >
+              {error}
+            </p>
+          )}
+          {success && (
+            <p
+              id="success-message"
+              className="form-message success"
+              role="status"
+              aria-live="polite"
+            >
+              {success}
+            </p>
+          )}
+
+          <label htmlFor="name" className="visually-hidden">
+            Name
+          </label>
           <input
+            ref={nameRef}
+            id="name"
             type="text"
             name="name"
             value={name}
             onChange={onChange}
             placeholder="Your name"
             required
+            aria-required="true"
+            aria-invalid={!!error && error.toLowerCase().includes("name")}
+            aria-describedby="error-message"
           />
+
+          <label htmlFor="email" className="visually-hidden">
+            Email
+          </label>
+          <p id="email-desc" className="visually-hidden">
+            Use a valid email format like name@example.com
+          </p>
           <input
+            ref={emailRef}
+            id="email"
             type="email"
             name="email"
             value={email}
             onChange={onChange}
             placeholder="Email"
             required
+            aria-required="true"
+            aria-invalid={!!error && error.toLowerCase().includes("email")}
+            aria-describedby="email-desc error-message"
           />
+
+          <label htmlFor="password" className="visually-hidden">
+            Password
+          </label>
           <input
+            ref={passwordRef}
+            id="password"
             type="password"
             name="password"
             value={password}
             onChange={onChange}
             placeholder="Create password"
             required
+            aria-required="true"
+            aria-invalid={!!error && error.toLowerCase().includes("password")}
+            aria-describedby="error-message"
           />
+
+          <label htmlFor="confirmPassword" className="visually-hidden">
+            Confirm Password
+          </label>
           <input
+            ref={confirmRef}
+            id="confirmPassword"
             type="password"
             name="confirmPassword"
             value={confirmPassword}
             onChange={onChange}
             placeholder="Confirm password"
             required
+            aria-required="true"
+            aria-invalid={
+              !!error &&
+              (error.toLowerCase().includes("confirm") ||
+                error.toLowerCase().includes("match"))
+            }
+            aria-describedby="error-message"
           />
+
           <button type="submit" onClick={onSubmit}>
             Register
           </button>
+          <Link to="/login" className="link">
+            Already have an account? Login here!
+          </Link>
         </div>
       </div>
     </div>
