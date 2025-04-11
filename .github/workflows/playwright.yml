@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
@@ -18,23 +18,20 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Install frontend and backend dependencies
+      - name: Install dependencies
         run: |
+          npm install -g concurrently wait-on
           cd frontend && npm ci
           cd ../backend && npm ci
 
-      - name: Start frontend and backend servers
+      - name: Start frontend and backend
         run: |
-          cd backend && npm run start &  # backend on :5000
-          cd ../frontend && npm run start &  # frontend on :3000
+          concurrently "cd backend && npm start" "cd frontend && npm start" &
+          wait-on http://localhost:3000 http://localhost:5000
         env:
-          PORT: 3000
           JWT_SECRET: secret123
+          PORT: 3000
           REACT_APP_API_URL: http://localhost:5000/api
-        working-directory: .
-
-      - name: Wait for servers to be ready
-        run: npx wait-on http://localhost:3000 http://localhost:5000
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
