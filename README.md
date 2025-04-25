@@ -103,7 +103,7 @@ To create an admin:
 
 ## 📸 Screenshots
 
-_(Add some screenshots here of the homepage, reservation form, and admin panel)_
+
 
 ## 📬 Contact
 
