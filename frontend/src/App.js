@@ -7,7 +7,6 @@ import Dessert from "./components/Dessert";
 import Cocktails from "./components/Cocktails";
 import GiftCertificate from "./components/GiftCertificate";
 import AboutUs from "./components/AboutUs";
-import Events from "./components/Events";
 import "../src/styles/App.css";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
@@ -15,6 +14,7 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import Admin from "./components/Admin";
+import MyReservations from "./components/MyReservations";
 
 function App() {
   return (
@@ -28,10 +28,11 @@ function App() {
           <Route path="/dessert" element={<Dessert />} />
           <Route path="/giftcertificate" element={<GiftCertificate />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/events" element={<Events />} />
           <Route path="/wine-menu" element={<WineMenu />} />
           <Route path="/registration" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/my-reservations" element={<MyReservations />} />
+
           {/* Admin route protected with PrivateRoute */}
           <Route path="/admin" element={<PrivateRoute element={Admin} />} />
         </Routes>
