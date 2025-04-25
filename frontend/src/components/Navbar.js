@@ -1,119 +1,206 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
+import { FrogPrince } from "../components/icons/FrogPrince";
 
 const Navbar = () => {
-  const [prevScrollpos, setPrevScrollpos] = useState(window.pageYOffset);
-  const [top, setTop] = useState(0);
-  const [isLaCarteOpen, setIsLaCarteOpen] = useState(false); // La Carte dropdown state
-  const [isSocialMediaOpen, setIsSocialMediaOpen] = useState(false); // Social Media dropdown state
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // For mobile menu
+  const [isLaCarteOpen, setIsLaCarteOpen] = useState(false);
+  const [isSocialMediaOpen, setIsSocialMediaOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const modalRef = useRef(null);
+  const hamburgerButtonRef = useRef(null);
+
+  // Mobile menu: Escape & focus trap
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setTop(prevScrollpos > currentScrollPos ? 0 : -80);
-      setPrevScrollpos(currentScrollPos);
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+
+      if (e.key === "Tab" && isMobileMenuOpen && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex="0"]'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollpos]);
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", handleKeyDown);
+      setTimeout(() => {
+        modalRef.current
+          ?.querySelector('a[href], button:not([disabled]), [tabindex="0"]')
+          ?.focus();
+      }, 0);
+    } else {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+      hamburgerButtonRef.current?.focus();
+    }
 
-  // Toggle La Carte dropdown
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
+
+  // ESC closes desktop dropdowns
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsLaCarteOpen(false);
+        setIsSocialMediaOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const toggleLaCarteDropdown = () => {
-    setIsLaCarteOpen((prevState) => !prevState);
-    // Close the Social Media dropdown if it's open
+    setIsLaCarteOpen((prev) => !prev);
     if (isSocialMediaOpen) setIsSocialMediaOpen(false);
   };
 
-  // Toggle Social Media dropdown
   const toggleSocialMediaDropdown = () => {
-    setIsSocialMediaOpen((prevState) => !prevState);
-    // Close the La Carte dropdown if it's open
+    setIsSocialMediaOpen((prev) => !prev);
     if (isLaCarteOpen) setIsLaCarteOpen(false);
   };
 
-  // Toggle Mobile menu
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((prevState) => !prevState);
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
   return (
     <header role="banner">
-      <nav
-        role="navigation"
-        className={styles.navbar}
-        style={{ top: `${top}px` }}
-      >
+      <nav role="navigation" className={styles.navbar}>
         {/* Mobile Hamburger Menu */}
         <div className={styles.mobileMenu}>
           <button
+            ref={hamburgerButtonRef}
             className={styles.hamburgerButton}
             aria-expanded={isMobileMenuOpen ? "true" : "false"}
             aria-controls="mobile-menu"
             onClick={toggleMobileMenu}
           >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-            >
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            </svg>
-            Menu
+            <FrogPrince />
+            <span className="sr-only">Menu</span>
           </button>
 
-          {/* Mobile Menu Links */}
           {isMobileMenuOpen && (
-            <ul id="mobile-menu" className={styles.dropdownContent}>
-              <li>
-                <Link to="/menu">Dinner Menu</Link>
-              </li>
-              <li>
-                <Link to="/cocktails">Cocktail Menu</Link>
-              </li>
-              <li>
-                <Link to="/wine-menu">Wine List</Link>
-              </li>
-              <li>
-                <Link to="/dessert">Dessert Menu</Link>
-              </li>
-              <li>
-                <Link to="/events">Events</Link>
-              </li>
-              <li>
-                <Link to="/aboutus">About Us</Link>
-              </li>
-              <li>
-                <Link to="/giftcertificate">Gift Certificates</Link>
-              </li>
-            </ul>
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mobileMenuLabel"
+              className={styles.modalOverlay}
+              ref={modalRef}
+            >
+              <div className={styles.sideDrawer}>
+                <button
+                  onClick={toggleMobileMenu}
+                  aria-label="Close menu"
+                  className={styles.closeButton}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7a1 1 0 1 0-1.41 1.42L10.59 12l-4.89 4.88a1 1 0 0 0 1.41 1.42L12 13.41l4.88 4.89a1 1 0 0 0 1.42-1.41L13.41 12l4.89-4.88a1 1 0 0 0 0-1.41Z"
+                    />
+                  </svg>
+                  <span className="sr-only">Close menu</span>
+                </button>
+
+                <h2 id="mobileMenuLabel" className="sr-only">
+                  Mobile navigation menu
+                </h2>
+                <ul id="mobile-menu">
+                  <li>
+                    <Link to="/" onClick={toggleMobileMenu}>
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/menu" onClick={toggleMobileMenu}>
+                      Dinner Menu
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/cocktails" onClick={toggleMobileMenu}>
+                      Cocktail Menu
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/wine-menu" onClick={toggleMobileMenu}>
+                      Wine List
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/dessert" onClick={toggleMobileMenu}>
+                      Dessert Menu
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/aboutus" onClick={toggleMobileMenu}>
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/giftcertificate" onClick={toggleMobileMenu}>
+                      Gift Certificates
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           )}
         </div>
 
         {/* Desktop Navigation Links */}
-        <ul className={styles.flexContainer}>
+        <ul className={styles.flexContainer} aria-hidden={isMobileMenuOpen}>
           <li className={styles.flexItem}>
             <Link to="/" className={styles.navLink}>
               Home
             </Link>
           </li>
 
-          {/* La Carte Dropdown (Desktop) */}
-          <li className={`${styles.flexItem} ${styles.dropdown}`}>
+          <li
+            className={`${styles.flexItem} ${styles.dropdown}`}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                setIsLaCarteOpen(false);
+              }
+            }}
+          >
             <button
               className={styles.dropbtn}
+              aria-haspopup="true"
+              aria-controls="laCarteDropdown"
               aria-expanded={isLaCarteOpen ? "true" : "false"}
               onClick={toggleLaCarteDropdown}
             >
               La Carte
             </button>
             {isLaCarteOpen && (
-              <ul className={styles.dropdownContent}>
+              <ul
+                className={styles.dropdownContent}
+                id="laCarteDropdown"
+                role="menu"
+              >
                 <li>
                   <Link to="/menu">Dinner Menu</Link>
                 </li>
@@ -131,32 +218,40 @@ const Navbar = () => {
           </li>
 
           <li className={styles.flexItem}>
-            <Link to="/events" className={styles.navLink}>
-              Events
-            </Link>
-          </li>
-          <li className={styles.flexItem}>
             <Link to="/giftcertificate" className={styles.navLink}>
               Gift Certificates
             </Link>
           </li>
+
           <li className={styles.flexItem}>
             <Link to="/aboutus" className={styles.navLink}>
               About Us
             </Link>
           </li>
 
-          {/* Social Media Dropdown (Desktop) */}
-          <li className={`${styles.flexItem} ${styles.dropdown}`}>
+          <li
+            className={`${styles.flexItem} ${styles.dropdown}`}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                setIsSocialMediaOpen(false);
+              }
+            }}
+          >
             <button
               className={styles.dropbtn}
+              aria-haspopup="true"
+              aria-controls="socialMediaDropdown"
               aria-expanded={isSocialMediaOpen ? "true" : "false"}
               onClick={toggleSocialMediaDropdown}
             >
               Social Media
             </button>
             {isSocialMediaOpen && (
-              <ul className={styles.dropdownContent}>
+              <ul
+                className={styles.dropdownContent}
+                id="socialMediaDropdown"
+                role="menu"
+              >
                 <li>
                   <a
                     href="https://www.facebook.com"

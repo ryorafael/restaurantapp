@@ -7,7 +7,6 @@ import Dessert from "./components/Dessert";
 import Cocktails from "./components/Cocktails";
 import GiftCertificate from "./components/GiftCertificate";
 import AboutUs from "./components/AboutUs";
-import Events from "./components/Events";
 import "../src/styles/App.css";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
@@ -28,7 +27,6 @@ function App() {
           <Route path="/dessert" element={<Dessert />} />
           <Route path="/giftcertificate" element={<GiftCertificate />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/events" element={<Events />} />
           <Route path="/wine-menu" element={<WineMenu />} />
           <Route path="/registration" element={<Register />} />
           <Route path="/login" element={<Login />} />

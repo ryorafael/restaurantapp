@@ -24,9 +24,6 @@ const Footer = () => {
       <div className="footer-section">
         <ul>
           <li>
-            <Link to="/events">Events</Link>
-          </li>
-          <li>
             <Link to="/giftcertificates">Gift Cards</Link>
           </li>
           <li>
