@@ -3,10 +3,10 @@ const router = express.Router();
 const { Op } = require("sequelize"); // Import Sequelize operators
 const Reservation = require("../models/reservation"); // Import the Reservation model
 const authMiddleware = require("../middleware/authMiddleware"); // Import middleware
+const auth = require("../middleware/auth"); // ← simple auth middleware (not admin)
 
 router.get("/all", authMiddleware, async (req, res) => {
   try {
-    console.log("cou cou");
     const reservations = await Reservation.findAll({
       attributes: [
         "id",
@@ -32,12 +32,12 @@ router.get("/all", authMiddleware, async (req, res) => {
 });
 
 // Create a new reservation
-router.post("/", async (req, res) => {
-  // Log the incoming request body
+router.post("/", auth, async (req, res) => {
+  console.log("Headers:", req.headers);
   console.log("Request Body:", req.body);
 
-  const { userId, guestEmail, guestPhone, name, date, time, partySize } =
-    req.body;
+  const user_id = req.user?.id || null;
+  const { guestEmail, guestPhone, name, date, time, partySize } = req.body;
 
   // Validate required fields
   if (!name || !date || !time || !partySize) {
@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
 
   try {
     const reservation = await Reservation.create({
-      userId,
+      user_id,
       guest_email: guestEmail,
       guest_phone: guestPhone,
       name,
@@ -56,6 +56,7 @@ router.post("/", async (req, res) => {
       party_size: partySize,
     });
 
+    console.log("✅ Reservation created:", reservation.toJSON());
     res
       .status(201)
       .json({ msg: "Reservation created successfully!", reservation });
@@ -112,20 +113,29 @@ router.put("/:id", authMiddleware, async (req, res) => {
 });
 
 // Get reservations for a specific user
-router.get("/:userId", authMiddleware, async (req, res) => {
+router.get("/:userId", auth, async (req, res) => {
   const { userId } = req.params;
+  console.log("auth middleware hit");
+  console.log("req.user.id:", req.user.id);
+  console.log("userId from URL:", userId);
+
+  if (parseInt(req.user.id) !== parseInt(userId)) {
+    console.log("❌ Access denied: user tried to access someone else's data");
+    return res.status(403).json({ msg: "Access denied" });
+  }
 
   try {
     const reservations = await Reservation.findAll({
       where: {
-        userId,
+        user_id: userId,
       },
-      order: [["date", "DESC"]], // Order by date, newest first
+      order: [["date", "DESC"]],
     });
-    console.log(reservations);
-    res.json(reservations); // Respond with reservations
+
+    console.log("✅ Reservations found:", reservations);
+    res.json(reservations);
   } catch (err) {
-    console.error("Error fetching user reservations:", err);
+    console.error("Error fetching reservations:", err);
     res.status(500).json({ error: "Failed to fetch user reservations" });
   }
 });

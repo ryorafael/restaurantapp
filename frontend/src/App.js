@@ -14,6 +14,7 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
 import Admin from "./components/Admin";
+import MyReservations from "./components/MyReservations";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route path="/wine-menu" element={<WineMenu />} />
           <Route path="/registration" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/my-reservations" element={<MyReservations />} />
+
           {/* Admin route protected with PrivateRoute */}
           <Route path="/admin" element={<PrivateRoute element={Admin} />} />
         </Routes>
