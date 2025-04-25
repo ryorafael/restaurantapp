@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
-import { FrogPrince } from "../components/icons/FrogPrince";
+import { FrogPrince } from "./icons/FrogPrince";
 
 const Navbar = () => {
   const [isLaCarteOpen, setIsLaCarteOpen] = useState(false);
