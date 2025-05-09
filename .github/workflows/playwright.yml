@@ -18,7 +18,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: Ilovenaib12!!
           MYSQL_DATABASE: restaurant_db
           MYSQL_USER: appuser
-          MYSQL_PASSWORD: apppass
+          MYSQL_PASSWORD: Ilovenaib12!!
         ports:
           - 3306:3306
         options: >-
@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g concurrently wait-on
-          npm ci               # this installs @playwright/test from root package.json
+          npm ci
           cd frontend && npm ci
           cd ../backend && npm ci
 
@@ -47,9 +47,9 @@ jobs:
           wait-on http://localhost:3000 http://localhost:5000
         env:
           DB_USERNAME: appuser
-          DB_PASSWORD: apppass
+          DB_PASSWORD: Ilovenaib12!!
           DB_NAME: restaurant_db
-          DB_HOST: 127.0.0.1
+          DB_HOST: mysql # 🔥 this is the fix that makes backend connect to the MySQL container
           JWT_SECRET: 1058b490606b657ee34ad1731ba8de9a83927cd4bb1a35a263aecb58655621768ff262f792ae84da4d1d2e8aed8e399284a6034e6f65a8369fe73965c4919659
           REACT_APP_API_URL: http://localhost:5000/api
 
