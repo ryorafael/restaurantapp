@@ -14,10 +14,8 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: restaurant
-          MYSQL_USER: admin
-          MYSQL_PASSWORD: adminpass
+          MYSQL_ROOT_PASSWORD: Ilovenaib12!!
+          MYSQL_DATABASE: restaurant_db
         ports:
           - 3306:3306
         options: >-
