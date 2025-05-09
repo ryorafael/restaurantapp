@@ -37,6 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g concurrently wait-on
+          npm ci               # this installs @playwright/test from root package.json
           cd frontend && npm ci
           cd ../backend && npm ci
 
