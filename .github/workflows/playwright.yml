@@ -41,17 +41,17 @@ jobs:
           cd frontend && npm ci
           cd ../backend && npm ci
 
-          - name: Start frontend and backend
-          run: |
-            concurrently "sleep 10 && PORT=5000 cd backend && npm start" "cd frontend && npm start" &
-            wait-on http://localhost:3000 http://localhost:5000
-          env:
-            DB_USERNAME: root
-            DB_PASSWORD: Ilovenaib12!!
-            DB_NAME: restaurant_db
-            DB_HOST: mysql
-            JWT_SECRET: 1058b490606b657ee34ad1731ba8de9a83927cd4bb1a35a263aecb58655621768ff262f792ae84da4d1d2e8aed8e399284a6034e6f65a8369fe73965c4919659
-            REACT_APP_API_URL: http://localhost:5000/api
+      - name: Start frontend and backend
+        run: |
+          concurrently "sleep 10 && PORT=5000 cd backend && npm start" "cd frontend && npm start" &
+          wait-on http://localhost:3000 http://localhost:5000
+        env:
+          DB_USERNAME: appuser
+          DB_PASSWORD: Ilovenaib12!!
+          DB_NAME: restaurant_db
+          DB_HOST: mysql
+          JWT_SECRET: 1058b490606b657ee34ad1731ba8de9a83927cd4bb1a35a263aecb58655621768ff262f792ae84da4d1d2e8aed8e399284a6034e6f65a8369fe73965c4919659
+          REACT_APP_API_URL: http://localhost:5000/api
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
