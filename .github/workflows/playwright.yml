@@ -17,8 +17,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: Ilovenaib12!!
           MYSQL_DATABASE: restaurant_db
-          MYSQL_USER: appuser
-          MYSQL_PASSWORD: apppass
         ports:
           - 3306:3306
         options: >-
@@ -47,7 +45,7 @@ jobs:
           wait-on http://localhost:3000 http://localhost:5000
         env:
           DB_USERNAME: appuser
-          DB_PASSWORD: apppass
+          DB_PASSWORD: Ilovenaib12!!
           DB_NAME: restaurant_db
           DB_HOST: 127.0.0.1
           JWT_SECRET: 1058b490606b657ee34ad1731ba8de9a83927cd4bb1a35a263aecb58655621768ff262f792ae84da4d1d2e8aed8e399284a6034e6f65a8369fe73965c4919659
