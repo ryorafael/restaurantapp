@@ -39,7 +39,7 @@ jobs:
 
       - name: Start frontend and backend
         run: |
-          concurrently "cd backend && npm start" "cd frontend && npm start" &
+          concurrently "sleep 10 && cd backend && npm start" "cd frontend && npm start" &
           wait-on http://localhost:3000 http://localhost:5000
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
