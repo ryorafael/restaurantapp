@@ -15,6 +15,13 @@ app.use("/api/reservations", reservationRoutes);
 
 const PORT = process.env.PORT || 5000;
 
+console.log("ENV VARS", {
+  DB_USERNAME: process.env.DB_USERNAME,
+  DB_PASSWORD: process.env.DB_PASSWORD ? "✔️" : "❌",
+  DB_NAME: process.env.DB_NAME,
+  DB_HOST: process.env.DB_HOST,
+});
+
 // Test Sequelize connection
 sequelize
   .authenticate()
