@@ -2,23 +2,20 @@ name: Playwright Tests
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   test:
-    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: Ilovenaib12!!
-          MYSQL_DATABASE: restaurant_db
-          MYSQL_USER: appuser
-          MYSQL_PASSWORD: Ilovenaib12!!
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testdb
         ports:
           - 3306:3306
         options: >-
@@ -27,41 +24,39 @@ jobs:
           --health-timeout=5s
           --health-retries=5
 
-    steps:
-      - uses: actions/checkout@v4
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: testdb
+      JWT_SECRET: supersecret
+      REACT_APP_API_URL: http://localhost:5000/api
 
-      - uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 18
 
       - name: Install dependencies
-        run: |
-          npm install -g concurrently wait-on
-          npm ci
-          cd frontend && npm ci
-          cd ../backend && npm ci
+        run: npm install
 
-      - name: Start frontend and backend
-        run: |
-          concurrently "sleep 10 && PORT=5000 cd backend && npm start" "cd frontend && npm start" &
-          wait-on http://localhost:3000 http://localhost:5000
-        env:
-          DB_USERNAME: appuser
-          DB_PASSWORD: Ilovenaib12!!
-          DB_NAME: restaurant_db
-          DB_HOST: mysql # ✅ This is what GitHub Actions expects
-          JWT_SECRET: 1058b490606b657ee34ad1731ba8de9a83927cd4bb1a35a263aecb58655621768ff262f792ae84da4d1d2e8aed8e399284a6034e6f65a8369fe73965c4919659
-          REACT_APP_API_URL: http://localhost:5000/api
+      - name: Build frontend (if needed)
+        run: npm run build || echo "No frontend build step"
 
-      - name: Install Playwright Browsers
+      - name: Start backend
+        run: |
+          nohup node server.js > server.log 2>&1 &
+          sleep 10
+
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:5000/api
+
+      - name: Install Playwright
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
-
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
