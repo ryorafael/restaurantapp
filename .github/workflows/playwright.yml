@@ -25,11 +25,10 @@ jobs:
           --health-retries=5
 
     env:
-      DB_HOST: 127.0.0.1
-      DB_PORT: 3306
-      DB_USER: root
+      DB_USERNAME: root
       DB_PASSWORD: root
       DB_NAME: testdb
+      DB_HOST: 127.0.0.1
       JWT_SECRET: supersecret
       REACT_APP_API_URL: http://localhost:5000/api
 
@@ -44,16 +43,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build frontend (if needed)
-        run: npm run build || echo "No frontend build step"
-
       - name: Start backend
         run: |
           nohup node server.js > server.log 2>&1 &
-          sleep 10
+          sleep 5
 
-      - name: Wait for server to be ready
-        run: npx wait-on http://localhost:5000/api
+      - name: Wait for backend
+        run: |
+          npx wait-on http://localhost:5000/api || (
+            echo "❌ Server did not start. Here's the backend log:" && cat server.log && exit 1
+          )
 
       - name: Install Playwright
         run: npx playwright install --with-deps
