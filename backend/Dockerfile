@@ -14,4 +14,4 @@ RUN chmod +x wait-for-it.sh
 
 EXPOSE 5000
 
-CMD ["./wait-for-it.sh"]
+CMD ["./wait-for-it.sh", "db:3306", "--", "node", "server.js"]

@@ -6,6 +6,13 @@ const reservationRoutes = require("./routes/reservations");
 const sequelize = require("./config/sequelize"); // Import Sequelize instance
 
 dotenv.config();
+// Si le fichier .env.docker existe, on le charge
+const fs = require("fs");
+if (fs.existsSync(".env.docker")) {
+  require("dotenv").config({ path: ".env.docker" });
+} else {
+  require("dotenv").config();
+}
 
 const app = express();
 app.use(express.json());
