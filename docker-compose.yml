@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=Ilovenaib12!!
+      - DB_NAME=restaurant_db
+      - JWT_SECRET=1058b490606b657ee34ad1731ba8de9a83927cd4bb1a35a263aecb58655621768ff262f792ae84da4d1d2e8aed8e399284a6034e6f65a8369fe73965c4919659
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Ilovenaib12!!
+      MYSQL_DATABASE: restaurant_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
