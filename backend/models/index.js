@@ -3,7 +3,6 @@
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
-const process = require("process");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = {
@@ -37,10 +36,15 @@ fs.readdirSync(__dirname)
     );
   })
   .forEach((file) => {
-    const model = require(path.join(__dirname, file))(
-      sequelize,
-      Sequelize.DataTypes
-    );
+    const modelPath = path.join(__dirname, file);
+    const modelDef = require(modelPath);
+
+    // Check if it's a function (factory) or a class constructor
+    const model =
+      typeof modelDef === "function"
+        ? modelDef(sequelize, Sequelize.DataTypes)
+        : new modelDef(sequelize, Sequelize.DataTypes); // fallback if not a factory
+
     db[model.name] = model;
   });
 
