@@ -56,15 +56,19 @@ jobs:
 
       - name: Wait for MySQL to be ready
         run: |
-          echo "⏳ Waiting for MySQL..."
+          echo "Waiting for MySQL..."
           until mysqladmin ping -h127.0.0.1 -uroot -proot --silent; do
             echo -n "."; sleep 1
           done
-          echo "✅ MySQL is ready."
+          echo "MySQL is ready."
 
       - name: Seed admin user in test DB
         working-directory: backend
         run: node scripts/seedAdmin.js
+
+      - name: Seed test reservation
+        working-directory: backend
+        run: node scripts/seedReservation.js
 
       - name: Start backend server
         working-directory: backend
