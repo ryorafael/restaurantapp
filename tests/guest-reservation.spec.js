@@ -14,7 +14,12 @@ test("Guest can submit a reservation without logging in", async ({ page }) => {
   // Pick a valid date
   const dateInput = await page.getByPlaceholder("Select a date");
   await dateInput.click();
-  await page.locator(".react-datepicker__day--015").click(); // Change this to a day you know is valid
+
+  const availableDay = await page
+    .locator(".react-datepicker__day:not(.react-datepicker__day--disabled)")
+    .first();
+  await availableDay.click();
+  // Change this to a day you know is valid
 
   await page.getByLabel("Time").fill("18:00");
   await page.getByLabel("Guest").fill("2");
