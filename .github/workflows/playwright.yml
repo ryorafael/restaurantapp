@@ -15,7 +15,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testdb
+          MYSQL_DATABASE: restaurant_db
         ports:
           - 3306:3306
         options: >-
@@ -27,7 +27,7 @@ jobs:
     env:
       DB_USERNAME: root
       DB_PASSWORD: root
-      DB_NAME: testdb
+      DB_NAME: restaurant_db
       DB_HOST: 127.0.0.1
       JWT_SECRET: supersecret
       REACT_APP_API_URL: http://localhost:5000/api
@@ -41,18 +41,20 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
 
       - name: Start backend server
         run: |
+          cd backend
           nohup node server.js > server.log 2>&1 &
-          sleep 5
 
       - name: Wait for backend to be ready
         run: |
           npx wait-on http://localhost:5000/api || (
-            echo "❌ Backend failed to start, showing server.log:" && cat server.log && exit 1
+            echo "❌ Backend failed to start, showing server.log:" && cat backend/server.log && exit 1
           )
 
       - name: Install Playwright
