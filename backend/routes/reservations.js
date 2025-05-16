@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { Op } = require("sequelize"); // Import Sequelize operators
-const Reservation = require("../models/reservation"); // Import the Reservation model
+const db = require("../models");
+const Reservation = db.Reservation; // Import the Reservation model
 const authMiddleware = require("../middleware/authMiddleware"); // Import middleware
 const auth = require("../middleware/auth"); // ← simple auth middleware (not admin)
 

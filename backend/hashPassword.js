@@ -1,18 +1,19 @@
+require("dotenv").config();
 const bcrypt = require("bcryptjs");
-const User = require("./models/User"); // Import Sequelize User model
+const { sequelize } = require("./models");
+const db = require("./models");
+const User = db.User;
 
 const email = "ryorafael18@gmail.com"; // Admin email
 const password = "123456"; // Password to hash and update
 
 (async () => {
   try {
-    // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     console.log("Hashed Password:", hashedPassword);
 
-    // Update the user's password in the database
     const [updated] = await User.update(
       { password: hashedPassword },
       { where: { email } }
@@ -25,5 +26,7 @@ const password = "123456"; // Password to hash and update
     }
   } catch (err) {
     console.error("Error updating password:", err.message);
+  } finally {
+    await sequelize.close();
   }
 })();
