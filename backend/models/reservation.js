@@ -1,57 +1,106 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/sequelize");
-const User = require("./User");
+// const { DataTypes } = require("sequelize");
+// const sequelize = require("../config/sequelize");
+// const User = require("./User");
 
-const Reservation = sequelize.define(
-  "Reservation",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: User,
-        key: "id",
+// const Reservation = sequelize.define(
+//   "Reservation",
+//   {
+//     id: {
+//       type: DataTypes.INTEGER,
+//       autoIncrement: true,
+//       primaryKey: true,
+//     },
+//     user_id: {
+//       type: DataTypes.INTEGER,
+//       allowNull: true,
+//       references: {
+//         model: User,
+//         key: "id",
+//       },
+//       onDelete: "CASCADE",
+//       onUpdate: "CASCADE",
+//     },
+//     date: {
+//       type: DataTypes.DATEONLY,
+//       allowNull: false,
+//     },
+//     time: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//     party_size: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//     },
+//     guest_email: {
+//       type: DataTypes.STRING,
+//       allowNull: true,
+//     },
+//     guest_phone: {
+//       type: DataTypes.STRING,
+//       allowNull: true,
+//     },
+//     name: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//   },
+//   {
+//     tableName: "Reservations", // Ensure it matches the table name
+//     createdAt: "created_at", // Map createdAt to created_at
+//     updatedAt: false, // Disable updatedAt since it's missing
+//   }
+// );
+
+// Reservation.belongsTo(User, { foreignKey: "user_id", as: "user" });
+
+// module.exports = Reservation;
+module.exports = (sequelize, DataTypes) => {
+  const Reservation = sequelize.define(
+    "Reservation",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
       },
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
+      date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
+      time: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      party_size: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      guest_email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      guest_phone: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
-    date: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
-    time: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    party_size: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    guest_email: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    guest_phone: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    tableName: "Reservations", // Ensure it matches the table name
-    createdAt: "created_at", // Map createdAt to created_at
-    updatedAt: false, // Disable updatedAt since it's missing
-  }
-);
+    {
+      tableName: "Reservations",
+      createdAt: "created_at",
+      updatedAt: false,
+    }
+  );
 
-Reservation.belongsTo(User, { foreignKey: "user_id", as: "user" });
-
-module.exports = Reservation;
+  return Reservation;
+};
