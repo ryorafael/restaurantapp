@@ -22,7 +22,7 @@ jobs:
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=10
 
     env:
       DB_USERNAME: root
@@ -54,15 +54,23 @@ jobs:
           cd frontend
           npm install
 
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "⏳ Waiting for MySQL..."
+          until mysqladmin ping -h127.0.0.1 -uroot -proot --silent; do
+            echo -n "."; sleep 1
+          done
+          echo "✅ MySQL is ready."
+
+      - name: Seed admin user in test DB
+        working-directory: backend
+        run: node scripts/seedAdmin.js
+
       - name: Start backend server
         working-directory: backend
         run: |
           nohup node server.js > ../server.log 2>&1 &
           sleep 5
-
-      - name: Seed admin user in test DB
-        working-directory: backend
-        run: node scripts/seedAdmin.js
 
       - name: Start frontend (React app)
         working-directory: frontend
