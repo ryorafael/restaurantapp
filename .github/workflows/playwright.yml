@@ -60,6 +60,10 @@ jobs:
           nohup node server.js > ../server.log 2>&1 &
           sleep 5
 
+      - name: Seed admin user in test DB
+        working-directory: backend
+        run: node scripts/seedAdmin.js
+
       - name: Start frontend (React app)
         working-directory: frontend
         run: |
