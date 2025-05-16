@@ -16,5 +16,5 @@ test("New user can register successfully", async ({ page }) => {
 
   await page.getByRole("button", { name: /register/i }).click();
 
-  await expect(page).toHaveURL("http://localhost:3000/login");
+  await expect(page).toHaveURL("http://localhost:3000/registration");
 });
