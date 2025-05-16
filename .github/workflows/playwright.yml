@@ -53,6 +53,7 @@ jobs:
 
       - name: Wait for backend to be ready
         run: |
+          cd backend
           npx wait-on http://localhost:5000/api || (
             echo "❌ Backend failed to start, showing server.log:" && cat backend/server.log && exit 1
           )
