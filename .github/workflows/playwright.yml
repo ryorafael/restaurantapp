@@ -41,6 +41,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install root dependencies (Playwright)
+        run: npm install
+
       - name: Install backend dependencies
         run: |
           cd backend
