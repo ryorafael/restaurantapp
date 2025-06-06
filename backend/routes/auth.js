@@ -9,8 +9,6 @@ const User = db.User;
 router.post("/register", async (req, res) => {
   const { name, email, password, role } = req.body; // Include role from the request body
 
-  console.log(req.body); // Log the incoming request body for debugging
-
   // Check if all required fields are provided
   if (!name || !email || !password || !role) {
     return res.status(400).json({
@@ -64,7 +62,7 @@ router.post("/register", async (req, res) => {
     );
   } catch (err) {
     console.error("Error in registration process:", err.message);
-    res.status(500).send("Server error");
+    res.status(500).json({ msg: "Server error" });
   }
 });
 

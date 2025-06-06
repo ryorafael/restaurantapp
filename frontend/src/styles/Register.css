@@ -122,3 +122,64 @@
 input[aria-invalid="true"] {
   border: 2px solid #ff4d4f;
 }
+
+@media screen and (max-width: 768px) {
+  .register-container {
+    padding: 10px;
+    height: auto;
+  }
+
+  .register-frame {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .register-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: blur(2px);
+  }
+
+  .register-form {
+    width: 100%;
+    padding: 20px;
+    background-color: #47654f; /* solid bg for contrast */
+  }
+
+  .register-form input {
+    width: 100%;
+    margin: 12px 0;
+    font-size: 16px;
+  }
+
+  .register-form label {
+    color: #ffffff;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+
+  .register-form button {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .link {
+    display: block;
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .form-message {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+}

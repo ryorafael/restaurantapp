@@ -13,10 +13,10 @@ const Register = () => {
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [errorField, setErrorField] = useState(null);
 
   const { name, email, password, confirmPassword } = formData;
 
-  // Refs to input fields
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -29,36 +29,41 @@ const Register = () => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setErrorField(null);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!name.trim()) {
       setError("Please enter your name.");
+      setErrorField("name");
       requestAnimationFrame(() => nameRef.current?.focus());
       return;
     }
 
     if (!emailRegex.test(email)) {
       setError("Please enter a valid email address (e.g., name@example.com)");
+      setErrorField("email");
       requestAnimationFrame(() => emailRef.current?.focus());
       return;
     }
 
     if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
+      setErrorField("password");
       requestAnimationFrame(() => passwordRef.current?.focus());
       return;
     }
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
+      setErrorField("confirmPassword");
       requestAnimationFrame(() => confirmRef.current?.focus());
       return;
     }
 
     try {
       const userData = { ...formData, role: "user" };
-      const res = await api.post("/auth/register", userData);
+      await api.post("/auth/register", userData);
       setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => {
         window.location.href = "/login";
@@ -101,7 +106,15 @@ const Register = () => {
             </p>
           )}
 
-          <label htmlFor="name" className="visually-hidden">
+          <label
+            htmlFor="name"
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              display: "block",
+              marginTop: "10px",
+            }}
+          >
             Name
           </label>
           <input
@@ -111,19 +124,23 @@ const Register = () => {
             name="name"
             value={name}
             onChange={onChange}
-            placeholder="Your name"
             required
             aria-required="true"
-            aria-invalid={!!error && error.toLowerCase().includes("name")}
+            aria-invalid={errorField === "name"}
             aria-describedby="error-message"
           />
 
-          <label htmlFor="email" className="visually-hidden">
+          <label
+            htmlFor="email"
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              display: "block",
+              marginTop: "10px",
+            }}
+          >
             Email
           </label>
-          <p id="email-desc" className="visually-hidden">
-            Use a valid email format like name@example.com
-          </p>
           <input
             ref={emailRef}
             id="email"
@@ -131,14 +148,36 @@ const Register = () => {
             name="email"
             value={email}
             onChange={onChange}
-            placeholder="Email"
             required
             aria-required="true"
-            aria-invalid={!!error && error.toLowerCase().includes("email")}
-            aria-describedby="email-desc error-message"
+            aria-invalid={errorField === "email"}
+            aria-describedby={
+              errorField === "email" ? "error-message email-help" : "email-help"
+            }
           />
+          {errorField === "email" && (
+            <p
+              id="email-help"
+              style={{
+                fontSize: "0.9rem",
+                color: "#ccc",
+                marginTop: "4px",
+                marginBottom: "8px",
+              }}
+            >
+              Example: name@example.com
+            </p>
+          )}
 
-          <label htmlFor="password" className="visually-hidden">
+          <label
+            htmlFor="password"
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              display: "block",
+              marginTop: "10px",
+            }}
+          >
             Password
           </label>
           <input
@@ -148,14 +187,21 @@ const Register = () => {
             name="password"
             value={password}
             onChange={onChange}
-            placeholder="Create password"
             required
             aria-required="true"
-            aria-invalid={!!error && error.toLowerCase().includes("password")}
+            aria-invalid={errorField === "password"}
             aria-describedby="error-message"
           />
 
-          <label htmlFor="confirmPassword" className="visually-hidden">
+          <label
+            htmlFor="confirmPassword"
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              display: "block",
+              marginTop: "10px",
+            }}
+          >
             Confirm Password
           </label>
           <input
@@ -165,20 +211,16 @@ const Register = () => {
             name="confirmPassword"
             value={confirmPassword}
             onChange={onChange}
-            placeholder="Confirm password"
             required
             aria-required="true"
-            aria-invalid={
-              !!error &&
-              (error.toLowerCase().includes("confirm") ||
-                error.toLowerCase().includes("match"))
-            }
+            aria-invalid={errorField === "confirmPassword"}
             aria-describedby="error-message"
           />
 
           <button type="submit" onClick={onSubmit}>
             Register
           </button>
+
           <Link to="/login" className="link">
             Already have an account? Login here!
           </Link>

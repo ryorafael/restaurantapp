@@ -18,11 +18,6 @@ router.get("/all", authMiddleware, async (req, res) => {
         "time",
         ["party_size", "partySize"], // Alias party_size as partySize
       ],
-      // where: {
-      //   date: {
-      //     [Op.gte]: new Date(), // Fetch reservations for today or later
-      //   },
-      // },
       order: [["date", "DESC"]], // Order by date, newest first
     });
     res.json(reservations); // Respond with reservations
@@ -57,7 +52,7 @@ router.post("/", auth, async (req, res) => {
       party_size: partySize,
     });
 
-    console.log("✅ Reservation created:", reservation.toJSON());
+    console.log("Reservation created:", reservation.toJSON());
     res
       .status(201)
       .json({ msg: "Reservation created successfully!", reservation });
@@ -91,8 +86,8 @@ router.put("/:id", authMiddleware, async (req, res) => {
     const { id } = req.params; // Get reservation ID from URL parameters
     const { name, guest_email, guest_phone, date, time, party_size } = req.body; // Extract data from the request body
 
-    console.log("PUT route hit with ID:", id);
-    console.log("Request Body:", req.body);
+    // console.log("PUT route hit with ID:", id);
+    // console.log("Request Body:", req.body);
 
     const [updatedRows] = await Reservation.update(
       { name, guest_email, guest_phone, date, time, party_size },
@@ -102,7 +97,7 @@ router.put("/:id", authMiddleware, async (req, res) => {
     if (updatedRows === 0) {
       return res
         .status(404)
-        .json({ msg: "Reservation not found or no changes made" }); // Handle case where no rows are updated
+        .json({ msg: "Reservation not found or no changes made" });
     }
 
     res.json({ msg: "Reservation updated successfully" }); // Respond with success
@@ -116,12 +111,12 @@ router.put("/:id", authMiddleware, async (req, res) => {
 // Get reservations for a specific user
 router.get("/:userId", auth, async (req, res) => {
   const { userId } = req.params;
-  console.log("auth middleware hit");
-  console.log("req.user.id:", req.user.id);
-  console.log("userId from URL:", userId);
+  // console.log("auth middleware hit");
+  // console.log("req.user.id:", req.user.id);
+  // console.log("userId from URL:", userId);
 
   if (parseInt(req.user.id) !== parseInt(userId)) {
-    console.log("❌ Access denied: user tried to access someone else's data");
+    console.log("Access denied: user tried to access someone else's data");
     return res.status(403).json({ msg: "Access denied" });
   }
 
@@ -133,7 +128,7 @@ router.get("/:userId", auth, async (req, res) => {
       order: [["date", "DESC"]],
     });
 
-    console.log("✅ Reservations found:", reservations);
+    console.log("Reservations found:", reservations);
     res.json(reservations);
   } catch (err) {
     console.error("Error fetching reservations:", err);
