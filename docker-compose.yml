@@ -8,7 +8,7 @@ services:
     env_file:
       - ./backend/.env.docker
     ports:
-      - "3306:3306"
+      - "3310:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
@@ -25,7 +25,7 @@ services:
     env_file:
       - ./backend/.env.docker
     ports:
-      - "5000:5000"
+      - "5010:5000"
     depends_on:
       db:
         condition: service_healthy
@@ -40,7 +40,7 @@ services:
     container_name: frontend-client
     restart: always
     ports:
-      - "3000:80"
+      - "3060:80"
     depends_on:
       - backend
 
