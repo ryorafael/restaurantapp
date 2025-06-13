@@ -29,7 +29,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-        command: ["bash", "./wait-for-it.sh"]
+        # command: ["bash", "./wait-for-it.sh"]
+        command: node server.js
     volumes:
       - ./backend:/app
       - /app/node_modules
