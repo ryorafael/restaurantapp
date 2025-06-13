@@ -7,9 +7,6 @@ services:
     restart: always
     env_file:
       - ./backend/.env.docker
-    environment:
-      MYSQL_ROOT_PASSWORD: Ilovenaib12!!
-      MYSQL_DATABASE: testdb
     ports:
       - "3306:3306"
     volumes:
@@ -36,6 +33,16 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend-client
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
 
 volumes:
   mysql-data:
