@@ -76,11 +76,18 @@ jobs:
           nohup node server.js > ../backend.log 2>&1 &
           sleep 3
 
-      - name: Start frontend (React app)
+      - name: Build frontend for production
+        working-directory: frontend
+        run: npm run build
+
+      - name: Install serve for static frontend
+        run: npm install -g serve
+
+      - name: Start frontend (static build)
         working-directory: frontend
         run: |
-          nohup npm start > ../frontend.log 2>&1 &
-          sleep 8
+          nohup serve -s build -l 3000 > ../frontend.log 2>&1 &
+          sleep 5
 
       - name: Show backend logs if needed
         run: cat backend.log || true
