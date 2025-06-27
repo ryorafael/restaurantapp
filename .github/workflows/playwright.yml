@@ -29,7 +29,7 @@ jobs:
       DB_PASSWORD: root
       DB_NAME: restaurant_db
       DB_HOST: 127.0.0.1
-      JWT_SECRET: supersecret
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
       REACT_APP_API_URL: http://localhost:5000/api
 
     steps:
@@ -61,6 +61,9 @@ jobs:
             echo -n "."; sleep 1
           done
           echo "MySQL is ready."
+
+      - name: Check MySQL logs for issues
+        run: docker logs $(docker ps -q --filter ancestor=mysql:8.0)
 
       - name: Seed admin user in test DB
         working-directory: backend
