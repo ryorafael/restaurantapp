@@ -77,9 +77,12 @@ const Register = () => {
     <div className="register-container">
       <div className="register-frame">
         <img
+          loading="lazy"
           src={foodPresentation}
           alt="Food Presentation"
           className="register-image"
+          width="400"
+          height="300"
         />
         <div className="register-form">
           <h2>Sign up</h2>

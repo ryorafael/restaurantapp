@@ -82,6 +82,9 @@ jobs:
           nohup npm start > ../frontend.log 2>&1 &
           sleep 10
 
+      - name: Wait for frontend and backend to be ready
+        run: npx wait-on http://localhost:3000 http://localhost:5000
+
       - name: Install Playwright
         run: npx playwright install --with-deps
 
