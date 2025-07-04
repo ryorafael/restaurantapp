@@ -103,13 +103,17 @@ router.delete("/:id", authMiddleware, async (req, res) => {
 router.put("/:id", authMiddleware, async (req, res) => {
   try {
     const { id } = req.params; // Get reservation ID from URL parameters
-    const { name, guest_email, guest_phone, date, time, party_size } = req.body; // Extract data from the request body
-
-    // console.log("PUT route hit with ID:", id);
-    // console.log("Request Body:", req.body);
+    const { name, guestEmail, guestPhone, date, time, partySize } = req.body;
 
     const [updatedRows] = await Reservation.update(
-      { name, guest_email, guest_phone, date, time, party_size },
+      {
+        name,
+        guest_email: guestEmail,
+        guest_phone: guestPhone,
+        date,
+        time,
+        party_size: partySize,
+      },
       { where: { id } }
     );
 
