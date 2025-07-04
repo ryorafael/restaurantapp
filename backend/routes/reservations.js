@@ -27,7 +27,6 @@ router.get("/all", authMiddleware, async (req, res) => {
   }
 });
 
-// Create a new reservation add auth later
 router.post("/", async (req, res) => {
   console.log("Headers:", req.headers);
   console.log("Request Body:", req.body);
@@ -35,10 +34,30 @@ router.post("/", async (req, res) => {
   const user_id = req.user?.id || null;
   const { guestEmail, guestPhone, name, date, time, partySize } = req.body;
 
-  // Validate required fields
-  if (!name || !date || !time || !partySize) {
+  // Validation: name, date, time required
+  if (!name || !date || !time) {
     console.error("Validation Error: Missing fields");
-    return res.status(400).json({ msg: "Please provide all required fields." });
+    return res
+      .status(400)
+      .json({ msg: "Please provide name, date, and time." });
+  }
+
+  // Validation: at least one contact method required
+  if (
+    (!guestEmail || guestEmail.trim() === "") &&
+    (!guestPhone || guestPhone.trim() === "")
+  ) {
+    console.error("Validation Error: No contact info");
+    return res.status(400).json({
+      msg: "Please provide at least an email or phone number for contact.",
+    });
+  }
+
+  if (!partySize || isNaN(partySize) || Number(partySize) <= 0) {
+    console.error("Validation Error: Invalid party size");
+    return res.status(400).json({
+      msg: "Please provide a valid party size (must be a number greater than 0).",
+    });
   }
 
   try {
