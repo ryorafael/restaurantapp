@@ -14,7 +14,6 @@ const Admin = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       const token = localStorage.getItem("token"); // Get token from localStorage
-      console.log("Token in LocalStorage:", token);
 
       if (!token) {
         console.error("No token found. Redirecting to login.");
@@ -238,11 +237,11 @@ const Admin = () => {
               />
               <input
                 type="number"
-                value={currentReservation.party_size || ""}
+                value={currentReservation.partySize || ""}
                 onChange={(e) =>
                   setCurrentReservation({
                     ...currentReservation,
-                    party_size: e.target.value,
+                    partySize: e.target.value,
                   })
                 }
                 placeholder="Party Size"

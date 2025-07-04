@@ -127,12 +127,8 @@ router.put("/:id", authMiddleware, async (req, res) => {
   }
 });
 
-// Get reservations for a specific user
 router.get("/:userId", auth, async (req, res) => {
   const { userId } = req.params;
-  // console.log("auth middleware hit");
-  // console.log("req.user.id:", req.user.id);
-  // console.log("userId from URL:", userId);
 
   if (parseInt(req.user.id) !== parseInt(userId)) {
     console.log("Access denied: user tried to access someone else's data");
