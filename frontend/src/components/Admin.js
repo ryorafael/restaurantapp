@@ -150,7 +150,9 @@ const Admin = () => {
                   <td>{reservation.guestPhone || "N/A"}</td>
                   <td>{new Date(reservation.date).toLocaleDateString()}</td>
                   <td>{reservation.time}</td>
-                  <td>{reservation.partySize}</td>
+                  <td>
+                    {reservation.partySize ?? reservation.party_size ?? "N/A"}
+                  </td>
                   <td>
                     <button
                       onClick={() => handleEdit(reservation)}
