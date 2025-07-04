@@ -1,3 +1,5 @@
+const { time } = require("console");
+
 module.exports = (sequelize, DataTypes) => {
   const Reservation = sequelize.define(
     "Reservation",
@@ -39,9 +41,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: "Reservations",
+      tableName: "reservations",
       createdAt: "created_at",
       updatedAt: false,
+      timestamps: true,
     }
   );
 

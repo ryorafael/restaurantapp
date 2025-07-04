@@ -37,12 +37,16 @@ services:
   frontend:
     build:
       context: ./frontend
+      args:
+        REACT_APP_API_URL: http://188.165.238.74:5010/api
     container_name: frontend-client
     restart: always
     ports:
       - "3010:80"
     depends_on:
       - backend
+    environment:
+      - REACT_APP_API_URL=http://188.165.238.74:5010/api
 
 volumes:
   mysql-data:

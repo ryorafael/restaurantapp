@@ -3,10 +3,11 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const reservationRoutes = require("./routes/reservations");
-const sequelize = require("./config/sequelize"); // Import Sequelize instance
+// const sequelize = require("./config/sequelize"); // Import Sequelize instance
+const db = require("./models");
+const sequelize = db.sequelize;
 
 dotenv.config();
-// Si le fichier .env.docker existe, on le charge
 const fs = require("fs");
 if (fs.existsSync(".env.docker")) {
   require("dotenv").config({ path: ".env.docker" });
@@ -20,6 +21,12 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/reservations", reservationRoutes);
 
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
+app.get("/", (req, res) => res.send("API Running"));
+
 const PORT = process.env.PORT || 5000;
 
 console.log("ENV VARS", {
@@ -29,17 +36,23 @@ console.log("ENV VARS", {
   DB_HOST: process.env.DB_HOST,
 });
 
-// Test Sequelize connection
 sequelize
   .authenticate()
-  .then(() => console.log("Sequelize connected to MySQL successfully"))
+  .then(() => console.log("🔌 Connected to MySQL successfully"))
+  .then(() => {
+    return sequelize.sync({ logging: console.log });
+  })
+  .then(() => {
+    console.log("All models synchronized");
+    return sequelize.getQueryInterface().showAllTables();
+  })
+  .then((tables) => {
+    console.log("Tables in DB after sync:", tables);
+    app.listen(PORT, "0.0.0.0", () =>
+      console.log(`Server started on port ${PORT}`)
+    );
+  })
   .catch((err) => {
-    console.error("Error connecting to MySQL with Sequelize:", err);
-    process.exit(1); // Exit the process if there's an error
+    console.error("❌ Sequelize error:", err);
+    process.exit(1);
   });
-
-app.get("/", (req, res) => res.send("API Running"));
-
-app.listen(PORT, "0.0.0.0", () =>
-  console.log(`Server started on port ${PORT}`)
-);

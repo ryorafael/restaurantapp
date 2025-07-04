@@ -27,8 +27,8 @@ router.get("/all", authMiddleware, async (req, res) => {
   }
 });
 
-// Create a new reservation
-router.post("/", auth, async (req, res) => {
+// Create a new reservation add auth later
+router.post("/", async (req, res) => {
   console.log("Headers:", req.headers);
   console.log("Request Body:", req.body);
 

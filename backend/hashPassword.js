@@ -4,8 +4,8 @@ const { sequelize } = require("./models");
 const db = require("./models");
 const User = db.User;
 
-const email = "ryorafael18@gmail.com"; // Admin email
-const password = "123456"; // Password to hash and update
+const email = "ryorafael18@gmail.com";
+const password = "123456";
 
 (async () => {
   try {
