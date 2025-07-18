@@ -4,7 +4,6 @@ import logo from "../assets/LFF LOGO TRANSPARENT.webp";
 import "../styles/Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import MyReservations from "./MyReservations";
 
 const Footer = () => {
   return (
@@ -46,9 +45,6 @@ const Footer = () => {
           </li>
           <li>
             <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/my-reservations">My Reservations</Link>
           </li>
         </ul>
       </div>

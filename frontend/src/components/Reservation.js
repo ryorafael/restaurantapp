@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import reservationImage from "../assets/frontoffrog.jpeg";
 import "../styles/Reservation.css";
 import DatePicker from "react-datepicker"; // Import DatePicker
@@ -10,13 +10,70 @@ const Reservation = () => {
     fullName: "",
     phoneNumber: "",
     email: "",
-    date: "", // We will use DatePicker to update this
+    date: "",
     time: "",
     guests: "",
     comments: "",
   });
-
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [submittedData, setSubmittedData] = useState({});
+  const modalRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const triggerBtnRef = useRef(null);
+
+  useEffect(() => {
+    const previouslyFocusedElement = document.activeElement;
+
+    if (showModal) {
+      document
+        .getElementById("main-content")
+        .setAttribute("aria-hidden", "true");
+
+      const focusableElements = modalRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      const trapFocus = (e) => {
+        if (e.key === "Tab") {
+          if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+              e.preventDefault();
+              lastElement.focus();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              e.preventDefault();
+              firstElement.focus();
+            }
+          }
+        } else if (e.key === "Escape") {
+          handleCloseModal();
+        }
+      };
+
+      document.addEventListener("keydown", trapFocus);
+
+      setTimeout(() => {
+        closeBtnRef.current?.focus();
+      }, 0);
+
+      return () => {
+        document.removeEventListener("keydown", trapFocus);
+        document.getElementById("main-content").removeAttribute("aria-hidden");
+        previouslyFocusedElement?.focus();
+      };
+    }
+  }, [showModal]);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setTimeout(() => {
+      triggerBtnRef.current?.focus();
+    }, 0);
+  };
 
   // List of holidays in yyyy-mm-dd format
   const holidays = ["2024-12-24", "2024-04-06", "2024-11-27"];
@@ -110,12 +167,21 @@ const Reservation = () => {
     }
 
     // Validate guest limit
-    if (formData.guests > 6 < 0) {
+    if (formData.guests > 6 || formData.guests < 1) {
       setError("For more than 6 guests, please call the restaurant");
       return;
     }
 
     // If all validations pass
+    setSubmittedData({
+      fullName: formData.fullName,
+      phoneNumber: formData.phoneNumber,
+      email: formData.email,
+      date: new Date(formData.date).toLocaleDateString(), // proper format
+      time: formData.time,
+      guests: formData.guests,
+    });
+    setShowModal(true);
     setError("");
 
     try {
@@ -128,7 +194,8 @@ const Reservation = () => {
         guestPhone: formData.phoneNumber,
         comments: formData.comments || null, // Optional comments
       });
-      alert("Reservation submitted successfully!");
+      // alert("Reservation submitted successfully!");
+      setShowModal(true);
       console.log("Reservation Response:", response.data);
       // Optionally clear the form
       setFormData({
@@ -156,7 +223,7 @@ const Reservation = () => {
 
   return (
     <div className="reservation-container">
-      <div className="reservation-form">
+      <div className="reservation-form" id="main-content">
         <h2>Book A Table</h2>
         {error && (
           <p role="alert" className="error">
@@ -164,6 +231,10 @@ const Reservation = () => {
           </p>
         )}
         <form onSubmit={handleSubmit}>
+          <p>
+            All fields marked required are necessary to complete your
+            reservation.
+          </p>
           <div className="form-left">
             <label for="fullName">Full Name (required)</label>
             <input
@@ -175,7 +246,7 @@ const Reservation = () => {
               placeholder="Full Name"
               required
             />
-            <label for="phoneNumber">Phone Number</label>
+            <label for="phoneNumber">Phone Number (required)</label>
             <input
               id="phoneNumber"
               type="tel"
@@ -185,7 +256,7 @@ const Reservation = () => {
               placeholder="Phone Number"
               required
             />
-            <label for="email">Email</label> {/* Email field */}
+            <label for="email">Email (required)</label> {/* Email field */}
             <input
               id="email"
               type="email"
@@ -195,7 +266,7 @@ const Reservation = () => {
               placeholder="Email Address"
               required
             />
-            <label for="date">Date</label>
+            <label for="date">Date (required)</label>
             <DatePicker
               name="date"
               id="date"
@@ -206,19 +277,10 @@ const Reservation = () => {
               placeholderText="Select a date"
               required
             />
-            <label for="subscribe">
-              <input
-                type="checkbox"
-                name="subscribe"
-                id="subscribe"
-                onChange={handleChange}
-              />
-              I would like to be informed about events and news
-            </label>
           </div>
 
           <div className="form-right">
-            <label for="time">Time</label>
+            <label for="time">Time (required)</label>
             <input
               id="time"
               type="time"
@@ -230,7 +292,7 @@ const Reservation = () => {
               required
             />
 
-            <label for="guests">Guest</label>
+            <label for="guests">Guest (required)</label>
             <input
               id="guests"
               type="number"
@@ -256,6 +318,47 @@ const Reservation = () => {
             Reservation
           </button>
         </form>
+        {showModal && (
+          <div
+            className="modal-backdrop"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            ref={modalRef}
+            tabIndex="-1"
+          >
+            <div className="modal-content">
+              <h2 id="modal-title">Reservation Confirmed</h2>
+              <p id="modal-desc">
+                Your reservation has been successfully submitted with the
+                following details:
+              </p>
+              <ul>
+                <li>
+                  <strong>Name:</strong> {submittedData.fullName}
+                </li>
+                <li>
+                  <strong>Phone:</strong> {submittedData.phoneNumber}
+                </li>
+                <li>
+                  <strong>Email:</strong> {submittedData.email}
+                </li>
+                <li>
+                  <strong>Date:</strong> {submittedData.date}
+                </li>
+                <li>
+                  <strong>Time:</strong> {submittedData.time}
+                </li>
+                <li>
+                  <strong>Guests:</strong> {submittedData.guests}
+                </li>
+              </ul>
+              <button ref={closeBtnRef} onClick={handleCloseModal}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="reservation-image">
