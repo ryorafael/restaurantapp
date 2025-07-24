@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Guest can submit a reservation without logging in", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+  await page.goto("/");
 
   // Scroll to the reservation form if needed
   await page.locator("text=Book A Table").scrollIntoViewIfNeeded();
