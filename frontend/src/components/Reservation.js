@@ -245,6 +245,7 @@ const Reservation = () => {
               onChange={handleChange}
               placeholder="Full Name"
               required
+              autoComplete="name"
             />
             <label for="phoneNumber">Phone Number (required)</label>
             <input
@@ -255,6 +256,7 @@ const Reservation = () => {
               onChange={handleChange}
               placeholder="Phone Number"
               required
+              autoComplete="tel"
             />
             <label for="email">Email (required)</label> {/* Email field */}
             <input
@@ -265,6 +267,7 @@ const Reservation = () => {
               onChange={handleChange}
               placeholder="Email Address"
               required
+              autoComplete="email"
             />
             <label for="date">Date (required)</label>
             <DatePicker

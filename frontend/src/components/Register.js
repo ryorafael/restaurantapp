@@ -131,6 +131,7 @@ const Register = () => {
             aria-required="true"
             aria-invalid={errorField === "name"}
             aria-describedby="error-message"
+            autoComplete="name"
           />
 
           <label
@@ -152,6 +153,7 @@ const Register = () => {
             value={email}
             onChange={onChange}
             required
+            autoComplete="email"
             aria-required="true"
             aria-invalid={errorField === "email"}
             aria-describedby={
@@ -163,7 +165,7 @@ const Register = () => {
               id="email-help"
               style={{
                 fontSize: "0.9rem",
-                color: "#ccc",
+                color: "#FFD700",
                 marginTop: "4px",
                 marginBottom: "8px",
               }}
@@ -194,6 +196,7 @@ const Register = () => {
             aria-required="true"
             aria-invalid={errorField === "password"}
             aria-describedby="error-message"
+            autoComplete="new-password"
           />
 
           <label
@@ -218,6 +221,7 @@ const Register = () => {
             aria-required="true"
             aria-invalid={errorField === "confirmPassword"}
             aria-describedby="error-message"
+            autoComplete="new-password"
           />
 
           <button type="submit" onClick={onSubmit}>

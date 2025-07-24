@@ -14,7 +14,7 @@
   position: relative; /* Allows the form to appear in front of the image */
   z-index: 2; /* Ensures form is in front */
   width: 50%; /* Constrain width for centering */
-  background-color: rgba(255, 255, 255, 0.9); /* Transparent background */
+  background-color: #ffffff; /* Transparent background */
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);

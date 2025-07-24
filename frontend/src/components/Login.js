@@ -92,6 +92,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
               ref={emailRef}
               aria-required="true"
               aria-invalid={errorField === "email"}
@@ -131,6 +132,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
               ref={passwordRef}
               aria-required="true"
               aria-invalid={errorField === "password"}
