@@ -75,7 +75,6 @@ const Reservation = () => {
     }, 0);
   };
 
-  // List of holidays in yyyy-mm-dd format
   const holidays = ["2024-12-24", "2024-04-06", "2024-11-27"];
 
   const isHoliday = (date) => {
@@ -83,15 +82,12 @@ const Reservation = () => {
     return holidays.includes(formattedDate);
   };
 
-  // Check if it's a Monday
   const isMonday = (date) => {
     const day = date.getDay();
-    return day === 1; // Monday is represented by 1 in JS
+    return day === 1;
   };
 
-  // Disable Mondays, holidays, and past dates
   const isInvalidDate = (date) => {
-    // We want to disable dates that are Mondays, holidays, or in the past
     return isMonday(date) || isHoliday(date) || date < new Date();
   };
 
