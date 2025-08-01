@@ -1,132 +1,127 @@
-# 🍽️ Le Fou Frog Restaurant App
+🍽️ Le Fou Frog Restaurant App
+A full-stack restaurant reservation app for guests and administrators. Features include secure login, business rules for booking, and protected admin views.
 
-A full-stack restaurant application designed to manage reservations, user registrations, and admin control over bookings and events. Built with React, Express.js, and MySQL integration, this app provides a smooth experience for both customers and restaurant staff.
+🌐 Live : http://188.165.238.74:3010/
 
-## 🧑‍🍳 Features
+🧑‍🍳 Features
+👥 User
+Register / login with secure password hashing
 
-### 👥 User Side
+Make reservations with date, time, guest count
 
-* Register and log in to manage reservations
-* Make a reservation with date/time and party size
-* View personal reservation history
+View personal reservation history
 
-### 👨‍💼 Admin Side
+👨‍💼 Admin
+Admin login returns a JWT with role: admin
 
-* Log in to view all user reservations
-* Admin-only access control for sensitive routes
+Admins can access /reservations/all to see all bookings
 
-### 🗖️ Reservation Rules
+Normal users can only view their own
 
-* Date cannot be in the past
-* No reservations on Mondays, Christmas, Easter, or Thanksgiving
-* Time restrictions vary by day
-* Party size max: 6 guests
+📆 Reservation Rules
+❌ No past reservations
 
-## ⚙️ Tech Stack
+❌ Closed on: Mondays, Christmas, Easter, Thanksgiving
 
-### Frontend
+⏰ Time slots vary by weekday
 
-* React (with React Router)
-* Axios for API requests
+👥 Max party size: 6 guests
 
-### Backend
+⚙️ Tech Stack
+Frontend (Vercel-hosted)
+React + React Router
 
-* Express.js
-* JWT Authentication
-* bcrypt for password hashing
-* Sequelize (MySQL ORM)
-* MySQL for user and reservation management
+Axios
 
-## 🚀 Getting Started
+Private routes for admin access
 
-### 1. Clone the Repository
+Backend (on Ada server)
+Node.js + Express.js
 
-```bash
+MySQL + Sequelize ORM
+
+JWT Auth + bcrypt password hashing
+
+Dockerized setup
+
+🚀 Local Development
+1. Clone Project
+bash
+Copy
+Edit
 git clone https://github.com/ryorafael/restaurantapp.git
 cd restaurantapp
-```
-
-### 2. Set Up the Backend
-
-```bash
+2. Backend Setup
+bash
+Copy
+Edit
 cd backend
 npm install
-```
+Create a .env file in backend/:
 
-#### Create an `.env` file in `/backend` with the following keys:
+env
+Copy
+Edit
+PORT=3010
+JWT_SECRET=your_jwt_secret
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_db_password
+DB_NAME=restaurantdb
+Start backend:
 
-```
-PORT=
-JWT_SECRET=
-DB_HOST=
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
-```
-
-**Note:** Never commit this file to Git. It's listed in `.gitignore`.bash
-PORT=5000
-JWT\_SECRET=your\_jwt\_secret
-DB\_HOST=localhost
-DB\_USER=root
-DB\_PASSWORD=your\_password
-DB\_NAME=restaurantdb
-
-````
-
-### 3. Start Backend
-```bash
+bash
+Copy
+Edit
 node server.js
-````
-
-### 4. Set Up the Frontend
-
-```bash
+3. Frontend Setup
+bash
+Copy
+Edit
 cd ../frontend
 npm install
 npm start
-```
+Open http://localhost:3000
 
-The app should open at `http://localhost:3000`.
+📌 Important: The frontend uses REACT_APP_API_URL=http://188.165.238.74:3010/api in production. Update .env as needed locally.
 
-## 📁 Folder Structure
+🔐 Admin Access
+Register normally at /registration.
 
-```
+Then manually set their role via MySQL:
+
+sql
+Copy
+Edit
+UPDATE users SET role = 'admin' WHERE email = 'you@example.com';
+Or use the hashPassword.js script in /backend/ to securely update an admin password.
+
+✅ Testing & CI
+✔️ Playwright tests
+
+✔️ GitHub Actions CI/CD
+
+✔️ Dockerfile for backend
+
+📂 Folder Structure
+arduino
+Copy
+Edit
 restaurantapp/
-│
 ├── backend/
 │   ├── routes/
-│   ├── models/
 │   ├── middleware/
+│   ├── models/
 │   ├── config/
 │   └── server.js
-│
 ├── frontend/
 │   ├── components/
-│   ├── assets/
 │   ├── styles/
+│   ├── assets/
 │   └── App.js
-```
+📸 Screenshots
+Screenshots of homepage, booking form, and admin dashboard coming soon.
 
-## 🔐 Admin Access
-
-To create an admin:
-
-1. Register normally via the frontend.
-2. Update the user's role manually in the MySQL DB or use `hashPassword.js` to update the admin password.
-
-## 📝 Deployment & Testing
-
-* Backend is dockerized (`Dockerfile` available)
-* End-to-end tests written with **Playwright**
-* CI/CD pipeline runs tests on **GitHub Actions**
-
-## 📸 Screenshots
-
-*Coming soon: include screenshots of homepage, registration, admin view, and reservations.*
-
-## 📩 Contact
-
-If you want to collaborate or provide feedback, feel free to [open an issue](https://github.com/ryorafael/restaurantapp/issues) or reach out via email.
-
-**Live Preview:** [restaurantapplefoufrog.vercel.app](https://restaurantapplefoufrog.vercel.app/)
+💬 Contact
+Want to contribute or ask a question?
+Open an issue on GitHub
