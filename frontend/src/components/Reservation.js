@@ -227,12 +227,9 @@ const Reservation = () => {
           </p>
         )}
         <form onSubmit={handleSubmit}>
-          <p>
-            All fields marked required are necessary to complete your
-            reservation.
-          </p>
+          <p>All fields marked * are necessary to complete your reservation.</p>
           <div className="form-left">
-            <label for="fullName">Full Name (required)</label>
+            <label for="fullName">Full Name*</label>
             <input
               id="fullName"
               type="text"
@@ -243,7 +240,8 @@ const Reservation = () => {
               required
               autoComplete="name"
             />
-            <label for="phoneNumber">Phone Number (required)</label>
+            <label for="phoneNumber">Phone Number*</label>
+            <p className="suggestion">(example : +1(888)-777-7877)</p>
             <input
               id="phoneNumber"
               type="tel"
@@ -254,7 +252,8 @@ const Reservation = () => {
               required
               autoComplete="tel"
             />
-            <label for="email">Email (required)</label> {/* Email field */}
+            <label for="email">Email*</label>
+            <p className="suggestion">(example : johnsmith@email.com)</p>
             <input
               id="email"
               type="email"
@@ -265,7 +264,8 @@ const Reservation = () => {
               required
               autoComplete="email"
             />
-            <label for="date">Date (required)</label>
+            <label for="date">Date*</label>
+            <p className="suggestion">(example : 31/01/2000)</p>
             <DatePicker
               name="date"
               id="date"
@@ -279,7 +279,8 @@ const Reservation = () => {
           </div>
 
           <div className="form-right">
-            <label for="time">Time (required)</label>
+            <label for="time">Time*</label>
+            <p className="suggestion">(example : 5:30PM)</p>
             <input
               id="time"
               type="time"
@@ -291,7 +292,7 @@ const Reservation = () => {
               required
             />
 
-            <label for="guests">Guest (required)</label>
+            <label for="guests">Guest*</label>
             <input
               id="guests"
               type="number"

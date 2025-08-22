@@ -52,6 +52,15 @@ label {
   font-family: "Playfair Display", serif;
 }
 
+.suggestion {
+  font-size: 13px;
+  color: #566c64;
+  font-family: "Playfair Display", serif;
+  text-align: left;
+  margin: 0px;
+  font-weight: normal;
+}
+
 input,
 textarea {
   padding: 10px;

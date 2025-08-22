@@ -1,12 +1,72 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 import { FrogPrince } from "./icons/FrogPrince";
+
+/* ==== Helpers: read BOTH keys and validate token ==== */
+const STORAGE_KEYS = ["x-auth-token", "token"];
+
+const getToken = () => {
+  for (const k of STORAGE_KEYS) {
+    const v = localStorage.getItem(k);
+    if (v) return v;
+  }
+  return null;
+};
+
+const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch {
+    return null;
+  }
+};
+
+const isTokenValid = (token) => {
+  if (!token) return false;
+  const payload = parseJwt(token);
+  if (!payload || !payload.exp) return true; // if no exp, treat as valid
+  const now = Math.floor(Date.now() / 1000);
+  return payload.exp > now;
+};
+/* ==================================================== */
 
 const Navbar = () => {
   const [isLaCarteOpen, setIsLaCarteOpen] = useState(false);
   const [isSocialMediaOpen, setIsSocialMediaOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const location = useLocation();
+
+  // Init from storage
+  const [isLoggedIn, setIsLoggedIn] = useState(() => isTokenValid(getToken()));
+
+  // Re-check on focus / visibility / cross-tab storage
+  useEffect(() => {
+    const syncAuth = () => setIsLoggedIn(isTokenValid(getToken()));
+    window.addEventListener("focus", syncAuth);
+    document.addEventListener("visibilitychange", syncAuth);
+    window.addEventListener("storage", syncAuth);
+    return () => {
+      window.removeEventListener("focus", syncAuth);
+      document.removeEventListener("visibilitychange", syncAuth);
+      window.removeEventListener("storage", syncAuth);
+    };
+  }, []);
+
+  // Re-check when the route changes
+  useEffect(() => {
+    setIsLoggedIn(isTokenValid(getToken()));
+  }, [location.pathname]);
+
+  const logout = () => {
+    STORAGE_KEYS.forEach((k) => localStorage.removeItem(k));
+    setIsLoggedIn(false);
+    window.location.href = "/"; // or "/login"
+  };
+
+  // Fallback so JSX flips even if state is briefly stale
+  const loggedIn = isLoggedIn || isTokenValid(getToken());
 
   const modalRef = useRef(null);
   const hamburgerButtonRef = useRef(null);
@@ -14,9 +74,7 @@ const Navbar = () => {
   // Mobile menu: Escape & focus trap
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setIsMobileMenuOpen(false);
-      }
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
 
       if (e.key === "Tab" && isMobileMenuOpen && modalRef.current) {
         const focusableElements = modalRef.current.querySelectorAll(
@@ -25,10 +83,12 @@ const Navbar = () => {
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
+        if (!firstElement || !lastElement) return;
+
         if (e.shiftKey && document.activeElement === firstElement) {
           e.preventDefault();
           lastElement.focus();
-        } else if (document.activeElement === lastElement) {
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
           e.preventDefault();
           firstElement.focus();
         }
@@ -60,7 +120,6 @@ const Navbar = () => {
         setIsSocialMediaOpen(false);
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
@@ -75,9 +134,7 @@ const Navbar = () => {
     if (isLaCarteOpen) setIsLaCarteOpen(false);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
 
   return (
     <header role="banner">
@@ -163,6 +220,26 @@ const Navbar = () => {
                     <Link to="/giftcertificate" onClick={toggleMobileMenu}>
                       Gift Certificates
                     </Link>
+                  </li>
+                  <li>
+                    {loggedIn ? (
+                      <button
+                        type="button"
+                        onClick={logout}
+                        className={styles.registerButton}
+                        aria-label="Logout"
+                      >
+                        Logout
+                      </button>
+                    ) : (
+                      <Link
+                        to="/registration"
+                        onClick={toggleMobileMenu}
+                        className={styles.registerButton}
+                      >
+                        Register
+                      </Link>
+                    )}
                   </li>
                 </ul>
               </div>
@@ -275,9 +352,20 @@ const Navbar = () => {
           </li>
 
           <li className={styles.flexItem}>
-            <Link to="/registration" className={styles.registerButton}>
-              Register
-            </Link>
+            {loggedIn ? (
+              <button
+                type="button"
+                onClick={logout}
+                className={styles.registerButton}
+                aria-label="Logout"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link to="/registration" className={styles.registerButton}>
+                Register
+              </Link>
+            )}
           </li>
         </ul>
       </nav>

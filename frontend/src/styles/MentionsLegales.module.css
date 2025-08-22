@@ -1,0 +1,50 @@
+/* --- Scoping wrapper --- */
+.legalPage {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Reset common elements inside this page so external styles can't leak in */
+.legalPage :is(h1, h2, h3, p, a, ul, li) {
+  all: revert;
+  color: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+/* Re-apply the look we want */
+.legalPage h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.legalPage h2 {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.legalPage h3 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.legalPage p {
+  margin: 0 0 0.8rem;
+}
+
+.legalPage a {
+  text-decoration: underline;
+}
+
+.legalPage ul {
+  margin: 0.5rem 0 1rem 1.5rem;
+  list-style: disc;
+}

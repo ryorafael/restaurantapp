@@ -46,6 +46,9 @@ const Footer = () => {
           <li>
             <Link to="/login">Login</Link>
           </li>
+          <li>
+            <Link to="/mentionlegale">Mentions Légales</Link>
+          </li>
         </ul>
       </div>
       <div className="footer-socials">
