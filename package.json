@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+    "start": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
+    "test": "jest"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
@@ -12,5 +13,8 @@
     "jest": "^30.0.5",
     "supertest": "^7.1.4",
     "wait-on": "^8.0.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2"
   }
 }
