@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { Op } = require("sequelize"); // Import Sequelize operators
+const { Op } = require("sequelize");
 const db = require("../models");
-const Reservation = db.Reservation; // Import the Reservation model
-const authMiddleware = require("../middleware/authMiddleware"); // Import middleware
-const auth = require("../middleware/auth"); // ← simple auth middleware (not admin)
+const Reservation = db.Reservation;
+const authMiddleware = require("../middleware/authMiddleware");
+const auth = require("../middleware/auth");
 
 router.get("/all", authMiddleware, async (req, res) => {
   try {
@@ -16,11 +16,11 @@ router.get("/all", authMiddleware, async (req, res) => {
         ["guest_phone", "guestPhone"],
         "date",
         "time",
-        ["party_size", "partySize"], // Alias party_size as partySize
+        ["party_size", "partySize"],
       ],
-      order: [["date", "DESC"]], // Order by date, newest first
+      order: [["date", "DESC"]],
     });
-    res.json(reservations); // Respond with reservations
+    res.json(reservations);
   } catch (err) {
     console.error("Error fetching reservations:", err);
     res.status(500).json({ error: "Failed to fetch reservations" });
@@ -123,7 +123,7 @@ router.put("/:id", authMiddleware, async (req, res) => {
         .json({ msg: "Reservation not found or no changes made" });
     }
 
-    res.json({ msg: "Reservation updated successfully" }); // Respond with success
+    res.json({ msg: "Reservation updated successfully" });
   } catch (err) {
     console.error("Error updating reservation:", err);
     console.log("PUT route hit with ID:", req.params.id, "and data:", req.body);

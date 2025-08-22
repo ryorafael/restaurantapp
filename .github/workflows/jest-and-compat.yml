@@ -1,0 +1,81 @@
+﻿name: Jest & Node16 Compatibility
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  unit-tests-node20:
+    name: Unit tests (Jest) on Node 20
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install root deps (dev included)
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm i
+          fi
+
+      - name: Install backend deps
+        run: |
+          if [ -f backend/package-lock.json ]; then
+            npm ci --prefix backend
+          else
+            npm i --prefix backend
+          fi
+
+      - name: Run Jest
+        run: npm test
+
+  install-check-node16:
+    name: Install check on Node 16 (no Jest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 16
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16.x"
+          cache: "npm"
+
+      # Avoid installing devDependencies at root to skip Jest 30 on Node 16
+      - name: Root install (prod only)
+        run: npm ci --omit=dev
+
+      - name: Backend install (prod only)
+        run: npm ci --omit=dev --prefix backend
+
+      # Frontend deps (CRA supports Node 16). If it ever fails, we can also do --omit=dev here.
+      - name: Frontend install
+        run: npm ci --prefix frontend
+
+  frontend-build-node20:
+    name: Frontend build on Node 20
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install frontend deps
+        run: npm ci --prefix frontend
+
+      - name: Build frontend
+        run: npm run build --prefix frontend
