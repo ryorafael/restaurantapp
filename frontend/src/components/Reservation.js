@@ -227,7 +227,9 @@ const Reservation = () => {
           </p>
         )}
         <form onSubmit={handleSubmit}>
-          <p>All fields marked * are necessary to complete your reservation.</p>
+          <p className="allfields">
+            All fields marked * are necessary to complete your reservation.
+          </p>
           <div className="form-left">
             <label for="fullName">Full Name*</label>
             <input

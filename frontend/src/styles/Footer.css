@@ -100,37 +100,31 @@
   margin-bottom: 10px;
 }
 
-/* Mobile Styling */
 @media (max-width: 768px) {
-  .footer {
-    flex-wrap: wrap;
-    padding: 20px;
+  .footer-section ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    justify-items: center;
   }
-
-  .footer-section {
-    flex: 1;
-    margin: 10px;
-    text-align: center;
-  }
-
-  .footer-socials {
-    flex: 1;
-    margin-top: 10px;
-  }
-
-  .footer-info {
-    margin-top: 20px;
-  }
-
-  .footer-section li {
-    font-size: 16px; /* Decrease font size for mobile */
+  .footer-section ul li {
+    margin: 0;
   }
 
   .footer-section ul li a {
-    font-size: 16px; /* Decrease link font size */
+    display: inline-block;
+    padding: 6px 0;
   }
 
-  .footer-socials a {
-    font-size: 20px; /* Reduce icon size */
+  .footer-section {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 420px;
+    margin: 0;
+  }
+
+  .footer {
+    justify-content: center;
+    gap: 16px;
   }
 }

@@ -6,20 +6,21 @@
   padding: 40px;
   background-color: #4f7869;
   position: relative;
-  min-height: 100vh; /* Full screen height */
+  min-height: 100vh;
 }
 
 /* Reservation form styling */
 .reservation-form {
-  position: relative; /* Allows the form to appear in front of the image */
-  z-index: 2; /* Ensures form is in front */
-  width: 50%; /* Constrain width for centering */
-  background-color: #ffffff; /* Transparent background */
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 700px;
+  background-color: #ffffff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 0 auto; /* ensure centered */
 }
-
 /* Title styling */
 .reservation-form h2 {
   font-family: "Playfair Display", serif;
@@ -28,15 +29,20 @@
   color: #4f7869;
 }
 
-/* Form layout styling */
+@media (max-width: 992px) {
+  .form-left,
+  .form-right {
+    width: 100%; /* stack columns on medium screens */
+  }
+}
+
 .reservation-form form {
   display: flex;
-  flex-wrap: wrap; /* Allow elements to wrap */
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
 }
 
-/* Left and right columns */
 .form-left,
 .form-right {
   display: flex;
@@ -51,7 +57,10 @@ label {
   color: #4f7869;
   font-family: "Playfair Display", serif;
 }
-
+.allfields {
+  font-size: 15px;
+  color: #4f7869;
+}
 .suggestion {
   font-size: 13px;
   color: #566c64;

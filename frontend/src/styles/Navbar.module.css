@@ -26,9 +26,7 @@
 }
 
 /* Navigation Links */
-.navLink,
-.registerButton .registerButton:link,
-.registerButton:visited {
+.navLink {
   background-color: #6f784f;
   font-family: "Playfair Display", serif;
   color: #fff;
@@ -43,6 +41,30 @@
   cursor: pointer;
   transition: background-color 0.3s;
   margin: 0;
+}
+
+/* Register / Logout Button */
+.registerButton {
+  background-color: #4f7869;
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0;
+}
+
+.registerButton:hover {
+  background-color: #414833;
+  text-decoration: underline;
 }
 
 .dropbtn {
@@ -114,6 +136,7 @@
   background-color: #4f7869;
   border: none;
   border-radius: 10px;
+  margin: 0;
 }
 
 /* Mobile Modal */
