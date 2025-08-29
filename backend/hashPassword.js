@@ -5,7 +5,7 @@ const db = require("./models");
 const User = db.User;
 
 const email = "ryorafael18@gmail.com";
-const password = "123456";
+const password = "LeFouFrog!Admin2025";
 
 (async () => {
   try {

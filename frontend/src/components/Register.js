@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import "../styles/Register.css";
 import foodPresentation from "../assets/foodPresentation.webp";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const NAME_SAFE_RE = /^[a-zA-Z0-9\s.,'-]*$/; // basic XSS guard (no < > etc.)
+
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -25,14 +28,15 @@ const Register = () => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const joinIds = (...ids) => ids.filter(Boolean).join(" ") || undefined;
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
     setErrorField(null);
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    // --- validations ---
     if (!name.trim()) {
       setError("Please enter your name.");
       setErrorField("name");
@@ -40,7 +44,15 @@ const Register = () => {
       return;
     }
 
-    if (!emailRegex.test(email)) {
+    if (!NAME_SAFE_RE.test(name)) {
+      setError("Name contains invalid characters.");
+      setErrorField("name");
+      requestAnimationFrame(() => nameRef.current?.focus());
+      return;
+    }
+
+    const emailTrim = email.trim();
+    if (!EMAIL_RE.test(emailTrim)) {
       setError("Please enter a valid email address (e.g., name@example.com)");
       setErrorField("email");
       requestAnimationFrame(() => emailRef.current?.focus());
@@ -60,9 +72,17 @@ const Register = () => {
       requestAnimationFrame(() => confirmRef.current?.focus());
       return;
     }
+    // --- end validations ---
 
     try {
-      const userData = { ...formData, role: "user" };
+      // sanitize before send
+      const userData = {
+        name: name.trim(),
+        email: emailTrim.toLowerCase(),
+        password,
+        role: "user",
+      };
+
       await api.post("/auth/register", userData);
       setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => {
@@ -72,6 +92,11 @@ const Register = () => {
       setError(err.response?.data?.msg || "Something went wrong");
     }
   };
+
+  const emailDescribedBy = joinIds(
+    error ? "error-message" : null,
+    errorField === "email" ? "email-help" : null
+  );
 
   return (
     <div className="register-container">
@@ -145,6 +170,21 @@ const Register = () => {
           >
             Email
           </label>
+          <p
+            className="suggestion"
+            style={{
+              fontSize: "12px",
+              color: "#fcd27a",
+              fontFamily: "Playfair Display, serif",
+              textAlign: "left",
+              marginTop: "10px",
+              marginBottom: "10px",
+              fontWeight: "bold",
+              textDecoration: "underline",
+            }}
+          >
+            (example: johnsmith@email.com)
+          </p>
           <input
             ref={emailRef}
             id="email"

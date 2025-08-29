@@ -10,3 +10,6 @@ node_modules
 .env
 .env
 backend/.env.docker
+backend/hashPassword.js
+restaurant_db_2025-08-25_153318.sql
+backend/hashPassword.js
