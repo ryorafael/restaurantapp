@@ -7,9 +7,9 @@ test("Guest can submit a reservation without logging in", async ({ page }) => {
   await page.locator("text=Book A Table").scrollIntoViewIfNeeded();
 
   // Fill out form fields
-  await page.getByLabel("Full Name (required)").fill("Playwright Guest");
-  await page.getByLabel("Phone Number").fill("1234567890");
-  await page.getByLabel("Email").fill(`guest_${Date.now()}@example.com`);
+  await page.getByLabel("Full Name*").fill("Playwright Guest");
+  await page.getByLabel("Phone Number*").fill("1234567890");
+  await page.getByLabel("Email*").fill(`guest_${Date.now()}@example.com`);
 
   // Pick a valid date
   const dateInput = await page.getByPlaceholder("Select a date");
@@ -21,8 +21,8 @@ test("Guest can submit a reservation without logging in", async ({ page }) => {
   await availableDay.click();
   // Change this to a day you know is valid
 
-  await page.getByLabel("Time").fill("18:00");
-  await page.getByLabel("Guest").fill("2");
+  await page.getByLabel("Time*").fill("18:00");
+  await page.getByLabel("Guest*").fill("2");
   await page.getByLabel("Comments").fill("Playwright test reservation");
 
   // Submit
