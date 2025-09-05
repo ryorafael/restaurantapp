@@ -28,8 +28,6 @@ const Register = () => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const joinIds = (...ids) => ids.filter(Boolean).join(" ") || undefined;
-
   const onSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -92,11 +90,6 @@ const Register = () => {
       setError(err.response?.data?.msg || "Something went wrong");
     }
   };
-
-  const emailDescribedBy = joinIds(
-    error ? "error-message" : null,
-    errorField === "email" ? "email-help" : null
-  );
 
   return (
     <div className="register-container">

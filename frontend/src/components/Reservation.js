@@ -163,8 +163,13 @@ const Reservation = () => {
     }
 
     // Validate guest limit
-    if (formData.guests > 6 || formData.guests < 1) {
-      setError("For more than 6 guests, please call the restaurant");
+    if (formData.guests < 1) {
+      setError("Guest number must be at least 1.");
+      return;
+    }
+
+    if (formData.guests > 6) {
+      setError("For more than 6 guests, please call the restaurant.");
       return;
     }
 
@@ -303,6 +308,7 @@ const Reservation = () => {
               onChange={handleChange}
               placeholder="Guests"
               max="6"
+              min="1"
               required
             />
 

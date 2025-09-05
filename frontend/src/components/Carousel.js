@@ -69,7 +69,11 @@ const Carousel = () => {
           <img src={poisson} alt="poisson" />
         </div>
       </div>
-      <button className="play-pause-button" onClick={togglePlayPause}>
+      <button
+        className="play-pause-button"
+        onClick={togglePlayPause}
+        aria-label={isPlaying ? "Pause the carousel" : "Play the carousel"}
+      >
         {isPlaying ? "Pause" : "Play"}
       </button>
     </div>
